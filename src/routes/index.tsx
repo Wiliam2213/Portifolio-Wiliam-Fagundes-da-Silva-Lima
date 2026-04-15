@@ -1,56 +1,41 @@
-import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { StarField } from "../components/StarField";
-import { SolarSystem } from "../components/SolarSystem";
-import { PlanetPanel } from "../components/PlanetPanel";
-import { MobileSolar } from "../components/MobileSolar";
-import { useIsMobile } from "../hooks/use-mobile";
-import type { PlanetId } from "../data/portfolio";
+import { FloatingPlanets } from "../components/FloatingPlanets";
+import { Navbar } from "../components/Navbar";
+import { HeroSection } from "../components/HeroSection";
+import { AboutSection } from "../components/AboutSection";
+import { SkillsSection } from "../components/SkillsSection";
+import { ProjectsSection } from "../components/ProjectsSection";
+import { ExperienceSection } from "../components/ExperienceSection";
+import { ContactSection } from "../components/ContactSection";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Wiliam Fagundes — Full Stack Developer Portfolio" },
-      { name: "description", content: "Interactive solar system portfolio of Wiliam Fagundes. Full Stack Developer from Porto Alegre, Brazil." },
-      { property: "og:title", content: "Wiliam Fagundes — Full Stack Developer" },
-      { property: "og:description", content: "Explore my universe — an interactive solar system portfolio." },
+      { title: "Wiliam Fagundes — Desenvolvedor Full Stack" },
+      { name: "description", content: "Portfólio profissional de Wiliam Fagundes — Desenvolvedor Full Stack de Porto Alegre, Brasil. React, TypeScript, Node.js." },
+      { property: "og:title", content: "Wiliam Fagundes — Desenvolvedor Full Stack" },
+      { property: "og:description", content: "Portfólio com tema espacial. Explore meus projetos e habilidades." },
     ],
   }),
 });
 
 function Index() {
-  const [activePlanet, setActivePlanet] = useState<PlanetId | null>(null);
-  const isMobile = useIsMobile();
-
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen bg-background relative">
       <StarField />
+      <FloatingPlanets />
+      <Navbar />
 
-      {/* Navigation hint */}
-      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
-        <p className="font-mono text-[10px] text-muted-foreground/60 tracking-widest uppercase">
-          Click a planet to explore
-        </p>
-      </div>
-
-      {isMobile ? (
-        <MobileSolar onPlanetClick={setActivePlanet} />
-      ) : (
-        <div className="w-screen h-screen flex items-center justify-center relative z-10">
-          <div className="w-[960px] h-[960px] max-w-[95vw] max-h-[95vh] relative">
-            <SolarSystem
-              onPlanetClick={setActivePlanet}
-              activePlanet={activePlanet}
-            />
-          </div>
-        </div>
-      )}
-
-      <PlanetPanel
-        activePlanet={activePlanet}
-        onClose={() => setActivePlanet(null)}
-      />
+      <main className="relative z-10">
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ExperienceSection />
+        <ContactSection />
+      </main>
     </div>
   );
 }
