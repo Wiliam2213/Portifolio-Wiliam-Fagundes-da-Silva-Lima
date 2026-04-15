@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -29,13 +29,9 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-sun-glow: var(--sun-glow);
-  --color-planet-mercury: var(--planet-mercury);
-  --color-planet-venus: var(--planet-venus);
-  --color-planet-earth: var(--planet-earth);
-  --color-planet-mars: var(--planet-mars);
-  --color-planet-jupiter: var(--planet-jupiter);
-  --color-planet-saturn: var(--planet-saturn);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-magenta: var(--neon-magenta);
+  --color-neon-green: var(--neon-green);
   --font-display: var(--font-family-display);
   --font-mono: var(--font-family-mono);
   --font-body: var(--font-family-body);
@@ -43,42 +39,41 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.08 0.02 260);
+  --background: oklch(0.06 0.025 260);
   --foreground: oklch(0.95 0.01 260);
-  --card: oklch(0.12 0.025 260);
+  --card: oklch(0.1 0.03 260);
   --card-foreground: oklch(0.95 0.01 260);
-  --popover: oklch(0.1 0.02 260);
+  --popover: oklch(0.08 0.025 260);
   --popover-foreground: oklch(0.95 0.01 260);
-  --primary: oklch(0.7 0.18 200);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.2 0.03 260);
+  --primary: oklch(0.75 0.18 195);
+  --primary-foreground: oklch(0.05 0.02 260);
+  --secondary: oklch(0.15 0.03 260);
   --secondary-foreground: oklch(0.85 0.02 260);
-  --muted: oklch(0.18 0.02 260);
-  --muted-foreground: oklch(0.6 0.03 260);
-  --accent: oklch(0.75 0.2 50);
-  --accent-foreground: oklch(0.1 0.02 260);
+  --muted: oklch(0.14 0.02 260);
+  --muted-foreground: oklch(0.55 0.025 260);
+  --accent: oklch(0.7 0.22 325);
+  --accent-foreground: oklch(0.05 0.02 260);
   --destructive: oklch(0.6 0.24 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.25 0.03 260);
-  --input: oklch(0.2 0.03 260);
-  --ring: oklch(0.7 0.18 200);
+  --border: oklch(0.2 0.03 260);
+  --input: oklch(0.15 0.03 260);
+  --ring: oklch(0.75 0.18 195);
 
-  --sun-glow: oklch(0.85 0.2 65);
-  --planet-mercury: oklch(0.6 0.08 60);
-  --planet-venus: oklch(0.75 0.15 55);
-  --planet-earth: oklch(0.6 0.15 200);
-  --planet-mars: oklch(0.55 0.2 25);
-  --planet-jupiter: oklch(0.65 0.12 60);
-  --planet-saturn: oklch(0.7 0.1 75);
+  --neon-cyan: oklch(0.8 0.2 195);
+  --neon-magenta: oklch(0.7 0.25 325);
+  --neon-green: oklch(0.75 0.2 155);
 
-  --font-family-display: 'Outfit', sans-serif;
+  --font-family-display: 'Poppins', sans-serif;
   --font-family-mono: 'Space Mono', monospace;
-  --font-family-body: 'Outfit', sans-serif;
+  --font-family-body: 'Inter', sans-serif;
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
   }
   html, body {
     margin: 0;
@@ -89,37 +84,122 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
+    line-height: 1.6;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.2;
   }
 }
 
-/* Solar system core */
-@keyframes orbit {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 60px 20px var(--glow-color), 0 0 120px 40px var(--glow-color-outer); }
-  50% { box-shadow: 0 0 80px 30px var(--glow-color), 0 0 160px 60px var(--glow-color-outer); }
-}
+/* Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-20px); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes orbit-drift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(30px, -20px); }
+  50% { transform: translate(0, -10px); }
+  75% { transform: translate(-30px, -20px); }
+  100% { transform: translate(0, 0); }
 }
 @keyframes star-twinkle {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
 }
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes fill-bar {
+  from { width: 0; }
+  to { width: var(--fill-width); }
+}
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.5s ease-out forwards;
+  animation: fade-in-up 0.6s ease-out forwards;
 }
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+.animate-bounce-slow {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+/* Glass card effect */
+.glass-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 30px -5px color-mix(in oklab, var(--primary) 25%, transparent),
+              0 20px 60px -15px rgba(0,0,0,0.5);
+  transform: translateY(-4px);
+}
+
+/* Neon text gradient */
+.neon-gradient-text {
+  background: linear-gradient(135deg, var(--color-neon-cyan), var(--color-neon-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section separator */
+.section-glow-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-accent), transparent);
+  opacity: 0.3;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
 }
