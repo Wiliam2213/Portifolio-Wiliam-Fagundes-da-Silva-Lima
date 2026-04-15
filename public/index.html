@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiliam Fagundes Portfólio</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "@tanstack/react-router": "https://cdn.skypack.dev/@tanstack/react-router@1.168.0",
+        "react": "https://cdn.skypack.dev/react@19.0.0-rc-f38c22b0-20240704?dev&dmode=import",
+        "react-dom": "https://cdn.skypack.dev/react-dom@19.0.0-rc-f38c22b0-20240704?dev&dmode=import"
+      }
+    }
+  </script>
+  <style>
+    body { margin: 0; background: radial-gradient(circle at center, #0f0f23 0%, #000 70%); color: white; font-family: -apple-system, BlinkMacSystemFont, sans-serif; min-height: 100vh; }
+    .hero { padding: 2rem; text-align: center; }
+    h1 { font-size: 4rem; margin: 0; background: linear-gradient(45deg, #ff6b6b, #4ecdc4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    p { font-size: 1.5rem; opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Wiliam Fagundes</h1>
+    <p>Desenvolvedor Full Stack</p>
+    <p>Portfólio com tema espacial rodando!</p>
+    <div class="planets">
+      <img src="/images/planets/p-earth.png" alt="Earth" style="position: absolute; top: 20%; left: 10%; width: 50px; animation: float 6s ease-in-out infinite;">
+      <img src="/images/planets/p-mars.png" alt="Mars" style="position: absolute; top: 50%; right: 20%; width: 40px; animation: float 8s ease-in-out infinite reverse;">
+    </div>
+  </div>
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+  </style>
+</body>
+</html>
