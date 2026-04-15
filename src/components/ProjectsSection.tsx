@@ -3,8 +3,8 @@ import { projects } from "../data/portfolio";
 
 export function ProjectsSection() {
   return (
-    <section id="projetos" className="py-24 relative">
-      <div className="section-glow-line mb-24" />
+    <section id="projetos" className="py-20 relative">
+      <div className="section-glow-line mb-20" />
       <div className="max-w-6xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -19,24 +19,23 @@ export function ProjectsSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-center text-muted-foreground mb-16 max-w-xl mx-auto"
+          className="text-center text-muted-foreground mb-12 max-w-xl mx-auto"
         >
-          Explore alguns dos meus projetos mais interessantes, com foco em qualidade, performance e
-          experiência do usuário.
+          Explore alguns dos meus projetos mais interessantes.
         </motion.p>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, i) => (
             <motion.article
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className="glass-card rounded-xl overflow-hidden flex flex-col"
+              transition={{ delay: i * 0.1 }}
+              className="glass-card rounded-lg overflow-hidden flex flex-col h-96 hover:shadow-2xl transition-all duration-300"
             >
               {/* Preview */}
-              <div className="relative group aspect-video bg-card overflow-hidden">
+              <div className="relative group aspect-[4/3] bg-card overflow-hidden flex-shrink-0">
                 <iframe
                   src={project.url}
                   title={project.title}
@@ -44,64 +43,59 @@ export function ProjectsSection() {
                   loading="lazy"
                   sandbox="allow-scripts allow-same-origin"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
                   <a
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-2.5 rounded-lg font-display font-semibold text-sm
-                      bg-gradient-to-r from-primary to-accent text-primary-foreground
-                      hover:shadow-[0_0_30px_rgba(0,217,255,0.4)] transition-all duration-300"
+                    className="px-4 py-1.5 rounded-md font-display font-semibold text-xs bg-gradient-to-r from-primary to-accent text-primary-foreground hover:shadow-lg transition-all duration-300"
                   >
-                    Ver Projeto →
+                    Ver Demo
                   </a>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-display font-bold text-primary mb-2">
+              <div className="p-4 flex flex-col flex-grow space-y-2">
+                <h3 className="text-lg font-display font-bold text-primary line-clamp-1">
                   {project.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-4 flex-grow">
+                <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
                   {project.description}
                 </p>
 
-                {/* Problem / Solution / Impact */}
-                <div className="space-y-3 mb-5">
-                  <DetailRow label="Problema" text={project.problem} />
-                  <DetailRow label="Solução" text={project.solution} />
-                  <DetailRow label="Impacto" text={project.impact} />
+                {/* Problem / Solution / Impact - Compact */}
+                <div className="space-y-1 text-xs">
+                  <DetailRow label="💡 Solução" text={project.solution} />
+                  <DetailRow label="📈 Impacto" text={project.impact} />
                 </div>
 
                 {/* Tech tags */}
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {project.technologies.map((tech) => (
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {project.technologies.slice(0, 5).map((tech) => (
                     <span
                       key={tech}
-                      className="px-2.5 py-1 text-[11px] font-mono font-medium rounded border border-accent/30 text-accent bg-accent/5"
+                      className="px-2 py-0.5 text-xs font-mono font-medium rounded border border-accent/30 text-accent bg-accent/5"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                {/* Links */}
-                <div className="flex gap-3">
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 py-2.5 rounded-lg text-center text-sm font-semibold
-                      border border-primary/30 text-primary bg-primary/5
-                      hover:bg-primary hover:text-primary-foreground transition-all duration-200"
-                  >
-                    Ver ao Vivo
-                  </a>
-                </div>
+                {/* Link */}
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto pt-2 pb-1 border-t border-border/50 pt-3"
+                >
+                  <span className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+                    Ver Projeto → 
+                  </span>
+                </a>
               </div>
             </motion.article>
-          ))}
+          ))}  
         </div>
       </div>
     </section>
@@ -110,11 +104,12 @@ export function ProjectsSection() {
 
 function DetailRow({ label, text }: { label: string; text: string }) {
   return (
-    <div>
-      <span className="font-mono text-[10px] font-bold text-primary/60 uppercase tracking-widest">
+    <div className="space-y-0.5">
+      <span className="font-mono text-[10px] font-bold text-primary/70 uppercase tracking-wider">
         {label}
       </span>
-      <p className="text-sm text-foreground/75 leading-relaxed">{text}</p>
+      <p className="text-[11px] text-foreground/80 leading-tight line-clamp-2">{text}</p>
     </div>
   );
 }
+
