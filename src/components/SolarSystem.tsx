@@ -25,8 +25,10 @@ export function SolarSystem({ onPlanetClick, activePlanet }: SolarSystemProps) {
           width: 80,
           height: 80,
           transform: "translate(-50%, -50%)",
-          background: "radial-gradient(circle, #fff7d4 0%, #ffb347 40%, #ff6b00 70%, transparent 100%)",
-          boxShadow: "0 0 60px 20px rgba(255,179,71,0.5), 0 0 120px 50px rgba(255,107,0,0.3), 0 0 200px 80px rgba(255,60,0,0.15)",
+          background:
+            "radial-gradient(circle, #fff7d4 0%, #ffb347 40%, #ff6b00 70%, transparent 100%)",
+          boxShadow:
+            "0 0 60px 20px rgba(255,179,71,0.5), 0 0 120px 50px rgba(255,107,0,0.3), 0 0 200px 80px rgba(255,60,0,0.15)",
           zIndex: 10,
         }}
       />
@@ -71,7 +73,15 @@ interface OrbitRingProps {
   onClick: (id: PlanetId) => void;
 }
 
-function OrbitRing({ planet, centerX, centerY, isHovered, isActive, onHover, onClick }: OrbitRingProps) {
+function OrbitRing({
+  planet,
+  centerX,
+  centerY,
+  isHovered,
+  isActive,
+  onHover,
+  onClick,
+}: OrbitRingProps) {
   const orbitSize = planet.orbitRadius * 2;
 
   return (
@@ -134,9 +144,10 @@ function OrbitRing({ planet, centerX, centerY, isHovered, isActive, onHover, onC
               style={{
                 backgroundImage: `url(${planet.image})`,
                 backgroundColor: planet.color,
-                boxShadow: isHovered || isActive
-                  ? `0 0 20px 8px ${planet.glowColor}, 0 0 40px 16px ${planet.glowColor}`
-                  : `0 0 10px 3px ${planet.glowColor}`,
+                boxShadow:
+                  isHovered || isActive
+                    ? `0 0 20px 8px ${planet.glowColor}, 0 0 40px 16px ${planet.glowColor}`
+                    : `0 0 10px 3px ${planet.glowColor}`,
                 transition: "box-shadow 0.3s",
               }}
             />

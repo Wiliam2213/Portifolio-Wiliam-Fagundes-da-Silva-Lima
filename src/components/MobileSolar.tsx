@@ -18,12 +18,15 @@ export function MobileSolar({ onPlanetClick }: MobileSolarProps) {
         <div
           className="w-24 h-24 rounded-full mx-auto mb-6"
           style={{
-            background: "radial-gradient(circle, #fff7d4 0%, #ffb347 40%, #ff6b00 70%, transparent 100%)",
+            background:
+              "radial-gradient(circle, #fff7d4 0%, #ffb347 40%, #ff6b00 70%, transparent 100%)",
             boxShadow: "0 0 40px 15px rgba(255,179,71,0.4), 0 0 80px 30px rgba(255,107,0,0.2)",
           }}
         />
         <h1 className="font-display text-3xl font-bold text-foreground">Wiliam Fagundes</h1>
-        <p className="font-mono text-sm text-muted-foreground mt-2">Full Stack Developer · Porto Alegre, Brazil</p>
+        <p className="font-mono text-sm text-muted-foreground mt-2">
+          Full Stack Developer · Porto Alegre, Brazil
+        </p>
       </motion.div>
 
       {/* Planet cards */}
@@ -47,7 +50,9 @@ export function MobileSolar({ onPlanetClick }: MobileSolarProps) {
               }}
             />
             <div>
-              <p className="font-display font-bold" style={{ color: planet.color }}>{planet.section}</p>
+              <p className="font-display font-bold" style={{ color: planet.color }}>
+                {planet.section}
+              </p>
               <p className="font-mono text-[10px] text-muted-foreground">{planet.name}</p>
             </div>
             <span className="ml-auto text-muted-foreground">→</span>

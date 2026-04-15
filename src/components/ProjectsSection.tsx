@@ -21,7 +21,8 @@ export function ProjectsSection() {
           transition={{ delay: 0.1 }}
           className="text-center text-muted-foreground mb-16 max-w-xl mx-auto"
         >
-          Explore alguns dos meus projetos mais interessantes, com foco em qualidade, performance e experiência do usuário.
+          Explore alguns dos meus projetos mais interessantes, com foco em qualidade, performance e
+          experiência do usuário.
         </motion.p>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -59,8 +60,12 @@ export function ProjectsSection() {
 
               {/* Content */}
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-display font-bold text-primary mb-2">{project.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4 flex-grow">{project.description}</p>
+                <h3 className="text-xl font-display font-bold text-primary mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4 flex-grow">
+                  {project.description}
+                </p>
 
                 {/* Problem / Solution / Impact */}
                 <div className="space-y-3 mb-5">
@@ -106,7 +111,9 @@ export function ProjectsSection() {
 function DetailRow({ label, text }: { label: string; text: string }) {
   return (
     <div>
-      <span className="font-mono text-[10px] font-bold text-primary/60 uppercase tracking-widest">{label}</span>
+      <span className="font-mono text-[10px] font-bold text-primary/60 uppercase tracking-widest">
+        {label}
+      </span>
       <p className="text-sm text-foreground/75 leading-relaxed">{text}</p>
     </div>
   );

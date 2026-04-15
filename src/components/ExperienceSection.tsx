@@ -39,7 +39,8 @@ export function ExperienceSection() {
                 <div
                   className="w-4 h-4 rounded-full border-2 border-background mt-2"
                   style={{
-                    background: "linear-gradient(135deg, var(--color-primary), var(--color-accent))",
+                    background:
+                      "linear-gradient(135deg, var(--color-primary), var(--color-accent))",
                     boxShadow: "0 0 12px rgba(0,217,255,0.5)",
                   }}
                 />
@@ -59,7 +60,9 @@ export function ExperienceSection() {
                     {exp.period}
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{exp.description}</p>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  {exp.description}
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {exp.highlights.map((h) => (
                     <span
@@ -82,15 +85,41 @@ export function ExperienceSection() {
           viewport={{ once: true }}
           className="mt-16"
         >
-          <h3 className="text-center text-primary font-display font-semibold text-xl mb-8">Conquistas & Diferenciais</h3>
+          <h3 className="text-center text-primary font-display font-semibold text-xl mb-8">
+            Conquistas & Diferenciais
+          </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { icon: "🚀", title: "Sole Developer", desc: "Construindo sistemas em produção na Mercado Net Zero" },
-              { icon: "🤝", title: "Reporte Direto ao CTO", desc: "Decisões técnicas estratégicas diretamente com a liderança" },
-              { icon: "🌍", title: "3 Idiomas", desc: "Português (nativo), Inglês e Espanhol (intermediário)" },
-              { icon: "🎤", title: "Palestrante", desc: "Voluntário e palestrante, compartilhando conhecimento" },
-              { icon: "💡", title: "Empreendedor", desc: "Fundou negócio de alimentação, visão de negócios" },
-              { icon: "⚡", title: "Autodidata", desc: "Aprendizado contínuo e adaptação a novas tecnologias" },
+              {
+                icon: "🚀",
+                title: "Sole Developer",
+                desc: "Construindo sistemas em produção na Mercado Net Zero",
+              },
+              {
+                icon: "🤝",
+                title: "Reporte Direto ao CTO",
+                desc: "Decisões técnicas estratégicas diretamente com a liderança",
+              },
+              {
+                icon: "🌍",
+                title: "3 Idiomas",
+                desc: "Português (nativo), Inglês e Espanhol (intermediário)",
+              },
+              {
+                icon: "🎤",
+                title: "Palestrante",
+                desc: "Voluntário e palestrante, compartilhando conhecimento",
+              },
+              {
+                icon: "💡",
+                title: "Empreendedor",
+                desc: "Fundou negócio de alimentação, visão de negócios",
+              },
+              {
+                icon: "⚡",
+                title: "Autodidata",
+                desc: "Aprendizado contínuo e adaptação a novas tecnologias",
+              },
             ].map((item, i) => (
               <motion.div
                 key={item.title}

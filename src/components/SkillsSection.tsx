@@ -105,12 +105,17 @@ export function SkillsSection() {
             {proficiency.map((item) => (
               <div key={item.title}>
                 <div className="flex justify-between mb-2">
-                  <span className="text-sm font-semibold text-foreground">{item.title} ({item.level}%)</span>
+                  <span className="text-sm font-semibold text-foreground">
+                    {item.title} ({item.level}%)
+                  </span>
                 </div>
                 <div className="h-2 rounded-full bg-secondary overflow-hidden mb-1.5">
                   <motion.div
                     className="h-full rounded-full"
-                    style={{ background: "linear-gradient(90deg, var(--color-primary), var(--color-accent))" }}
+                    style={{
+                      background:
+                        "linear-gradient(90deg, var(--color-primary), var(--color-accent))",
+                    }}
                     initial={{ width: 0 }}
                     whileInView={{ width: `${item.level}%` }}
                     viewport={{ once: true }}

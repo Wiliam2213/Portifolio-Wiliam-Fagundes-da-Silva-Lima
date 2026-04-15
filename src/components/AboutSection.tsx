@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 
-const softSkills = ["Proatividade", "Escuta Ativa", "Inteligência Emocional", "Calma", "Adaptabilidade", "Curiosidade"];
+const softSkills = [
+  "Proatividade",
+  "Escuta Ativa",
+  "Inteligência Emocional",
+  "Calma",
+  "Adaptabilidade",
+  "Curiosidade",
+];
 
 export function AboutSection() {
   return (
@@ -33,13 +40,19 @@ export function AboutSection() {
             className="space-y-5"
           >
             <p className="text-muted-foreground leading-relaxed">
-              Sou um desenvolvedor júnior apaixonado por tecnologia e inovação. Com 20 anos, estou em uma jornada contínua de aprendizado e crescimento profissional.
+              Sou um desenvolvedor júnior apaixonado por tecnologia e inovação. Com 20 anos, estou
+              em uma jornada contínua de aprendizado e crescimento profissional.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Atualmente trabalho na <strong className="text-primary font-semibold">Mercado Net Zero</strong>, desenvolvendo uma plataforma white label para compra e gestão de certificados de créditos de carbono. Minha experiência inclui frontend, backend e organização de dados.
+              Atualmente trabalho na{" "}
+              <strong className="text-primary font-semibold">Mercado Net Zero</strong>,
+              desenvolvendo uma plataforma white label para compra e gestão de certificados de
+              créditos de carbono. Minha experiência inclui frontend, backend e organização de
+              dados.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Possuo um perfil proativo, calmo sob pressão, com boa comunicação e aprendizado contínuo. Sou adaptável a diferentes ambientes e sempre buscando novos desafios.
+              Possuo um perfil proativo, calmo sob pressão, com boa comunicação e aprendizado
+              contínuo. Sou adaptável a diferentes ambientes e sempre buscando novos desafios.
             </p>
           </motion.div>
 

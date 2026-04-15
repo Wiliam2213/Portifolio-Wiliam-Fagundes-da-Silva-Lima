@@ -52,7 +52,10 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <a
           href="#inicio"
-          onClick={(e) => { e.preventDefault(); handleClick("#inicio"); }}
+          onClick={(e) => {
+            e.preventDefault();
+            handleClick("#inicio");
+          }}
           className="font-mono text-xl font-bold text-primary transition-all hover:drop-shadow-[0_0_12px_rgba(0,217,255,0.6)]"
         >
           WF
@@ -64,10 +67,16 @@ export function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); handleClick(link.href); }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleClick(link.href);
+                }}
                 className="relative text-sm font-medium transition-colors duration-200"
                 style={{
-                  color: activeSection === link.href.slice(1) ? "var(--color-primary)" : "var(--color-foreground)",
+                  color:
+                    activeSection === link.href.slice(1)
+                      ? "var(--color-primary)"
+                      : "var(--color-foreground)",
                 }}
               >
                 {link.label}
@@ -75,7 +84,10 @@ export function Navbar() {
                   <motion.div
                     layoutId="nav-underline"
                     className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
-                    style={{ background: "linear-gradient(90deg, var(--color-primary), var(--color-accent))" }}
+                    style={{
+                      background:
+                        "linear-gradient(90deg, var(--color-primary), var(--color-accent))",
+                    }}
                   />
                 )}
               </a>
@@ -89,9 +101,15 @@ export function Navbar() {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-6 h-0.5 bg-primary transition-transform duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`block w-6 h-0.5 bg-primary transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
-          <span className={`block w-6 h-0.5 bg-primary transition-transform duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          <span
+            className={`block w-6 h-0.5 bg-primary transition-transform duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-primary transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-primary transition-transform duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`}
+          />
         </button>
       </div>
 
@@ -110,7 +128,10 @@ export function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={(e) => { e.preventDefault(); handleClick(link.href); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleClick(link.href);
+                    }}
                     className="block text-lg font-medium text-foreground hover:text-primary transition-colors"
                   >
                     {link.label}
