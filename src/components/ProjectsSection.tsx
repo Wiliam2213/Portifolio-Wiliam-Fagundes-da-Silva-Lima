@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { projects } from "../data/portfolio";
+import { ProjectPreview } from "./ProjectPreview";
 
 export function ProjectsSection() {
   return (
@@ -34,26 +35,8 @@ export function ProjectsSection() {
               transition={{ delay: i * 0.1 }}
               className="glass-card rounded-lg overflow-hidden flex flex-col h-96 hover:shadow-2xl transition-all duration-300"
             >
-              {/* Preview */}
-              <div className="relative group aspect-[4/3] bg-card overflow-hidden flex-shrink-0">
-                <iframe
-                  src={project.url}
-                  title={project.title}
-                  className="w-full h-full border-0 scale-100 group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-1.5 rounded-md font-display font-semibold text-xs bg-gradient-to-r from-primary to-accent text-primary-foreground hover:shadow-lg transition-all duration-300"
-                  >
-                    Ver Demo
-                  </a>
-                </div>
-              </div>
+              {/* Live Preview with screenshot fallback */}
+              <ProjectPreview url={project.url} title={project.title} />
 
               {/* Content */}
               <div className="p-4 flex flex-col flex-grow space-y-2">
