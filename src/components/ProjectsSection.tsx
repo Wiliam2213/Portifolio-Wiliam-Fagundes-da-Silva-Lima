@@ -41,7 +41,7 @@ export function ProjectsSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
+          className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2"
         >
           {projects.map((project) => (
             <motion.article
