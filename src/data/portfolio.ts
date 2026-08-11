@@ -136,15 +136,43 @@ export const experience = [
 
 export const projects = [
   {
-    title: "Retail AI Analyst",
+    title: "Navalha & Co.",
     description:
-      "Plataforma de analytics com IA para o varejo, gerando insights inteligentes e análises automatizadas.",
-    technologies: ["React", "TypeScript", "IA / LLM", "Node.js"],
-    problem: "Varejistas têm dificuldade de extrair insights acionáveis dos próprios dados.",
+      "Site institucional e sistema de agendamento online para barbearia premium, com apresentação de serviços, equipe e depoimentos.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Agendamento Online"],
+    problem:
+      "Barbearias perdem clientes por agendamento manual (telefone/WhatsApp), sem vitrine digital que transmita a experiência premium da casa.",
     solution:
-      "Analista com IA que interpreta dados automaticamente e entrega recomendações inteligentes.",
-    impact: "Permite decisões orientadas a dados sem exigir conhecimento técnico.",
-    url: "https://retail-ai-analyst.vercel.app/",
+      "Landing page de alta conversão com catálogo de serviços e preços, apresentação da equipe, prova social e fluxo de agendamento em poucos cliques, além de contato direto via WhatsApp.",
+    impact:
+      "Profissionaliza a presença digital da barbearia e reduz a fricção para o cliente marcar horário, sem depender de ligação.",
+    url: "https://barbearia-da-villa.vercel.app/",
+  },
+  {
+    title: "Alpha Insights (Retail AI Analyst)",
+    description:
+      "Dashboard analítico de vendas com inteligência artificial (Gemini), permitindo consultar dados em linguagem natural.",
+    technologies: ["React", "TypeScript", "IA / LLM (Gemini)", "Node.js", "Dashboards"],
+    problem:
+      "Varejistas têm dificuldade de extrair insights acionáveis dos próprios dados de vendas sem depender de um analista técnico.",
+    solution:
+      "Plataforma que permite importar planilhas de vendas e fazer perguntas em linguagem natural, retornando insights, métricas e KPIs instantâneos gerados por IA.",
+    impact:
+      "Permite decisões orientadas a dados sem exigir conhecimento técnico, acelerando a análise de desempenho comercial.",
+    url: "https://retail-ai-analyst-zeta.vercel.app/",
+  },
+  {
+    title: "Bora Doar Sangue",
+    description:
+      "Plataforma de cadastro e gestão de doadores de sangue, com histórico de doações e organização de dados dos doadores.",
+    technologies: ["React", "TypeScript", "Node.js"],
+    problem:
+      "Bancos de sangue e campanhas de doação têm dificuldade em manter um cadastro organizado dos doadores e acompanhar o histórico de doações de cada um.",
+    solution:
+      "Sistema de cadastro de doadores com armazenamento de dados pessoais, tipo sanguíneo e histórico de doações, facilitando o acompanhamento e a comunicação com a base de doadores.",
+    impact:
+      "Ajuda a organizar e manter atualizada a base de doadores, tornando mais fácil identificar doadores aptos e acompanhar a frequência das doações.",
+    url: "https://ta-tintendi-boradoarsangre.vercel.app/",
   },
   {
     title: "Mercado Net Zero",

@@ -130,7 +130,7 @@ export function ProjectPreview({ url, title }: ProjectPreviewProps) {
             className="flex items-center gap-1.5 rounded-md bg-gradient-to-r from-primary to-accent px-4 py-2 font-display text-xs font-semibold text-primary-foreground shadow-lg transition-transform duration-300 hover:scale-105"
           >
             <ExternalLink className="h-3.5 w-3.5" />
-            Abrir site oficial
+            Abrir site Demo
           </a>
         </motion.div>
 
