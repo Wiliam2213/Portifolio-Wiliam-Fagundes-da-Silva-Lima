@@ -82,34 +82,55 @@ export const planets: PlanetData[] = [
 ];
 
 export const skills = [
-  { category: "Languages", items: ["JavaScript", "TypeScript", "SQL", "Python"] },
-  { category: "Frontend", items: ["React", "Next.js", "Tailwind CSS", "Framer Motion"] },
-  { category: "Backend", items: ["Node.js", "Express", "REST APIs", "Supabase"] },
-  { category: "Tools", items: ["Git", "FlutterFlow", "N8N", "Docker (learning)"] },
-  { category: "Databases", items: ["PostgreSQL", "NoSQL", "Supabase"] },
+  {
+    category: "Frontend",
+    items: ["React", "Next.js", "TypeScript", "JavaScript (ES6+)", "Tailwind CSS", "HTML5 / CSS3", "SPA & SEO"],
+  },
+  {
+    category: "Backend",
+    items: ["Node.js", "Express", "REST APIs", "Middlewares", "Cache", "Services / Controllers / Repositories"],
+  },
+  {
+    category: "Auth & Segurança",
+    items: ["Keycloak", "JWT", "OAuth 2.0", "RBAC", "CORS", "LGPD", "XSS / CSRF"],
+  },
+  {
+    category: "Banco de Dados",
+    items: ["PostgreSQL", "Supabase", "Modelagem", "Views & Procedures", "Triggers", "Migrations", "Tuning de queries"],
+  },
+  {
+    category: "Infra & Cloud",
+    items: ["Docker", "Docker Compose", "Linux (Ubuntu)", "Nginx", "SSL", "VPS", "Google Cloud", "Vercel", "Render"],
+  },
+  {
+    category: "Integrações",
+    items: ["Stripe", "Banco Inter", "OpenPix", "APIs governamentais", "APIs REST de terceiros"],
+  },
 ];
 
 export const experience = [
   {
-    role: "Full Stack Developer",
+    role: "Software Developer Jr.",
     company: "Mercado Net Zero",
-    period: "Current",
+    period: "Atual",
     description:
-      "Sole developer working directly with the CTO. Building real systems, automations, and a white-label platform for carbon credit certificates.",
+      "Startup enxuta com 2 desenvolvedores, atuação direta com o CTO (Software Engineer Sênior na SAP) em ciclos semanais. Responsável por arquitetura, desenvolvimento full stack e deploy de sistemas em produção usados por usuários reais.",
     highlights: [
-      "Platform architecture",
-      "API integrations",
-      "Automation with N8N",
-      "Direct CTO collaboration",
+      "Arquitetura do Marketplace em produção",
+      "Liderança técnica da nova plataforma institucional",
+      "Auth com Keycloak, JWT e OAuth",
+      "Pagamentos: Stripe, Banco Inter, OpenPix",
+      "PostgreSQL/Supabase: modelagem e performance",
+      "Deploy com Docker, Nginx, SSL e VPS Linux",
     ],
   },
   {
-    role: "Previous Experience",
-    company: "Diverse Background",
-    period: "Before Tech",
+    role: "Trajetória anterior à tecnologia",
+    company: "Construção civil, comércio e vendas",
+    period: "Antes da tech",
     description:
-      "Worked as waiter, construction helper, school monitor, and entrepreneur (food sales). Volunteer and public speaker.",
-    highlights: ["Entrepreneurship", "Public speaking", "Adaptability", "Work ethic"],
+      "Atuação em construção civil e comércio próprio. Experiências que construíram disciplina, resiliência, comunicação efetiva e capacidade de adaptação, hoje aplicadas na entrega consistente de software.",
+    highlights: ["Empreendedorismo", "Comunicação", "Resiliência", "Adaptabilidade"],
   },
 ];
 
@@ -117,62 +138,90 @@ export const projects = [
   {
     title: "Retail AI Analyst",
     description:
-      "AI-powered analytics platform for retail businesses, providing intelligent insights and automated analysis.",
-    technologies: ["React", "TypeScript", "AI/ML", "Node.js"],
-    problem: "Retail businesses struggle to extract actionable insights from their data.",
+      "Plataforma de analytics com IA para o varejo, gerando insights inteligentes e análises automatizadas.",
+    technologies: ["React", "TypeScript", "IA / LLM", "Node.js"],
+    problem: "Varejistas têm dificuldade de extrair insights acionáveis dos próprios dados.",
     solution:
-      "Built an AI-powered analyst that automates data interpretation and provides smart recommendations.",
-    impact: "Enables data-driven decisions without requiring technical expertise.",
-    url: "https://retail-ai-analyst-4bco2yh3t-wiliamfagundeslima-6364s-projects.vercel.app/",
+      "Analista com IA que interpreta dados automaticamente e entrega recomendações inteligentes.",
+    impact: "Permite decisões orientadas a dados sem exigir conhecimento técnico.",
+    url: "https://retail-ai-analyst.vercel.app/",
   },
   {
     title: "Mercado Net Zero",
     description:
-      "White-label platform for buying and managing carbon credit certificates, supporting environmental sustainability.",
-    technologies: ["React", "Supabase", "Node.js", "FlutterFlow"],
-    problem: "Companies need accessible ways to offset carbon emissions through verified credits.",
+      "Plataforma de descarbonização e ESG: inventário de carbono, certificados e créditos de carbono.",
+    technologies: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Keycloak", "Stripe"],
+    problem: "Empresas precisam de um caminho acessível e auditável para compensar emissões.",
     solution:
-      "Developed a comprehensive platform for carbon credit management with automated workflows.",
-    impact: "Streamlines the carbon credit market, making sustainability accessible to businesses.",
-    url: "https://mercado-net-zero-dvhe7etnj-wiliamfagundeslima-6364s-projects.vercel.app/",
+      "Marketplace e plataforma institucional com fluxo completo de compra, autenticação e pagamentos integrados.",
+    impact: "Simplifica o mercado de créditos de carbono e torna a sustentabilidade acessível.",
+    url: "https://mercado-net-zero.vercel.app/",
+  },
+  {
+    title: "Portfólio Web",
+    description:
+      "Portfólio pessoal estático com foco em performance, SEO e apresentação de projetos.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Vercel"],
+    problem: "Precisava de uma vitrine profissional própria e rápida.",
+    solution: "Interface leve, responsiva e otimizada para leitura por recrutadores.",
+    impact: "Centraliza contato, currículo e projetos em um único link.",
+    url: "https://new-webportfolio.vercel.app/",
   },
 ];
 
 export const achievements = [
   {
     icon: "🚀",
-    title: "Sole Developer",
-    description: "Single-handedly building production systems at Mercado Net Zero",
+    title: "Sistemas em produção",
+    description: "Marketplace da Mercado Net Zero rodando com usuários reais",
   },
   {
     icon: "🤝",
-    title: "CTO Direct Report",
-    description: "Working directly with leadership on strategic technical decisions",
+    title: "Direto com o CTO",
+    description: "Weeklys e decisões técnicas com Software Engineer Sênior da SAP",
   },
   {
-    icon: "🌍",
-    title: "3 Languages",
-    description: "Portuguese (native), English & Spanish (intermediate)",
+    icon: "🧭",
+    title: "Liderança técnica",
+    description: "Lidero a construção da nova plataforma institucional",
   },
   {
-    icon: "🎤",
-    title: "Public Speaker",
-    description: "Volunteer and speaker, sharing knowledge with communities",
+    icon: "🔐",
+    title: "Segurança aplicada",
+    description: "Keycloak, JWT, OAuth 2.0, RBAC e conformidade com LGPD",
   },
   {
-    icon: "💡",
-    title: "Entrepreneur",
-    description: "Founded food business, understanding business from ground up",
+    icon: "💳",
+    title: "Pagamentos integrados",
+    description: "Stripe, Banco Inter e OpenPix em fluxo transacional real",
   },
   {
-    icon: "⚡",
-    title: "Self-Taught",
-    description: "Continuously learning and adapting to new technologies",
+    icon: "🎓",
+    title: "Ciência de Dados",
+    description: "Bacharelado em andamento + Programa Geração Caldeira (2025)",
   },
 ];
 
+export const profile = {
+  name: "Wiliam Fagundes da Silva Lima",
+  shortName: "Wiliam Fagundes",
+  title: "Software Engineer | Full Stack Developer (React / Node.js)",
+  location: "Porto Alegre, RS – Brasil",
+  email: "wiliamfagundes.lima@gmail.com",
+  phone: "+55 51 99364-0615",
+  phoneRaw: "5551993640615",
+  github: "https://github.com/Wiliam2213",
+  linkedin: "https://www.linkedin.com/in/wiliam-fagundes-95a56726a/",
+};
+
 export const contactLinks = [
-  { label: "GitHub", url: "https://github.com/wiliamfagundeslima", icon: "github" },
-  { label: "LinkedIn", url: "https://linkedin.com/in/wiliamfagundes", icon: "linkedin" },
-  { label: "Email", url: "mailto:wiliam@example.com", icon: "mail" },
+  { label: "Email", value: profile.email, url: `mailto:${profile.email}`, icon: "mail" },
+  {
+    label: "WhatsApp",
+    value: profile.phone,
+    url: `https://wa.me/${profile.phoneRaw}`,
+    icon: "phone",
+  },
+  { label: "LinkedIn", value: "in/wiliam-fagundes", url: profile.linkedin, icon: "linkedin" },
+  { label: "GitHub", value: "@Wiliam2213", url: profile.github, icon: "github" },
 ];
