@@ -328,12 +328,12 @@ function ContactContent({ color }: { color: string }) {
               style={{ backgroundColor: `${color}22` }}
             >
               <span style={{ color }} className="text-lg">
-                {link.icon === "github" ? "⌨" : link.icon === "linkedin" ? "💼" : "✉"}
+                {link.icon === "github" ? "⌨" : link.icon === "linkedin" ? "💼" : link.icon === "phone" ? "📱" : "✉"}
               </span>
             </div>
             <div>
               <p className="font-display font-semibold text-sm">{link.label}</p>
-              <p className="font-mono text-[10px] text-muted-foreground">{link.url}</p>
+              <p className="font-mono text-[10px] text-muted-foreground break-all">{link.value}</p>
             </div>
           </a>
         ))}
@@ -354,9 +354,6 @@ function ContactContent({ color }: { color: string }) {
           </span>
           <span className="px-2 py-1 rounded text-[10px] font-mono bg-secondary/50">
             🇺🇸 English
-          </span>
-          <span className="px-2 py-1 rounded text-[10px] font-mono bg-secondary/50">
-            🇪🇸 Spanish
           </span>
         </div>
       </div>
