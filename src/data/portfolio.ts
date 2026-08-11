@@ -157,16 +157,6 @@ export const projects = [
     impact: "Simplifica o mercado de créditos de carbono e torna a sustentabilidade acessível.",
     url: "https://mercado-net-zero.vercel.app/",
   },
-  {
-    title: "Portfólio Web",
-    description:
-      "Portfólio pessoal estático com foco em performance, SEO e apresentação de projetos.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Vercel"],
-    problem: "Precisava de uma vitrine profissional própria e rápida.",
-    solution: "Interface leve, responsiva e otimizada para leitura por recrutadores.",
-    impact: "Centraliza contato, currículo e projetos em um único link.",
-    url: "https://new-webportfolio.vercel.app/",
-  },
 ];
 
 export const achievements = [
