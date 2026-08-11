@@ -24,6 +24,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Portfólio com tema espacial para explorar projetos, experiência e habilidades.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
 });
