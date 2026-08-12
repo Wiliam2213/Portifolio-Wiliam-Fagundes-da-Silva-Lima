@@ -149,19 +149,6 @@ export const projects = [
     url: "https://barbearia-da-villa.vercel.app/",
   },
   {
-    title: "Alpha Insights (Retail AI Analyst)",
-    description:
-      "Dashboard analítico de vendas com inteligência artificial (Gemini), permitindo consultar dados em linguagem natural.",
-    technologies: ["React", "TypeScript", "IA / LLM (Gemini)", "Node.js", "Dashboards"],
-    problem:
-      "Varejistas têm dificuldade de extrair insights acionáveis dos próprios dados de vendas sem depender de um analista técnico.",
-    solution:
-      "Plataforma que permite importar planilhas de vendas e fazer perguntas em linguagem natural, retornando insights, métricas e KPIs instantâneos gerados por IA.",
-    impact:
-      "Permite decisões orientadas a dados sem exigir conhecimento técnico, acelerando a análise de desempenho comercial.",
-    url: "https://retail-ai-analyst-zeta.vercel.app/",
-  },
-  {
     title: "Bora Doar Sangue",
     description:
       "Plataforma de cadastro e gestão de doadores de sangue, com histórico de doações e organização de dados dos doadores.",
