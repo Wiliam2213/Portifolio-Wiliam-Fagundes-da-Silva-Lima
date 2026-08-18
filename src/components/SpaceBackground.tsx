@@ -162,7 +162,7 @@ export function SpaceBackground() {
       prevScrollY = scrollY;
       const streak = Math.min(Math.max(Math.abs(velocity) - 40, 0), 220);
 
-      let zone = DEFAULT_ZONE;
+      let zone: { r: number; g: number; b: number } = DEFAULT_ZONE;
       const midY = scrollY + height * 0.5;
       for (const z of measuredZones) {
         if (midY >= z.top && midY < z.top + z.height) {
