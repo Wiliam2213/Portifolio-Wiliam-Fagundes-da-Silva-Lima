@@ -1,13 +1,14 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
 import { AboutSection } from "../components/AboutSection";
 import { ContactSection } from "../components/ContactSection";
+import { CursorTrail } from "../components/CursorTrail";
 import { ExperienceSection } from "../components/ExperienceSection";
-import { FloatingPlanets } from "../components/FloatingPlanets";
 import { HeroSection } from "../components/HeroSection";
+import { MeteorShower } from "../components/MeteorShower";
 import { Navbar } from "../components/Navbar";
 import { ProjectsSection } from "../components/ProjectsSection";
 import { SkillsSection } from "../components/SkillsSection";
-import { StarField } from "../components/StarField";
+import { SpaceBackground } from "../components/SpaceBackground";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -33,8 +34,9 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="relative min-h-screen bg-background">
-      <StarField />
-      <FloatingPlanets />
+      <SpaceBackground />
+      <MeteorShower />
+      <CursorTrail />
       <Navbar />
 
       <main className="relative z-10">
