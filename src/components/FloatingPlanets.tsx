@@ -93,6 +93,7 @@ export function FloatingPlanets({
   opacity = 0.5,
 }: FloatingPlanetsProps) {
   const [scrollY, setScrollY] = useState(0);
+  const [hovered, setHovered] = useState<PlanetId | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const sectionTopRef = useRef(0);
 
@@ -134,6 +135,7 @@ export function FloatingPlanets({
       {visible.map((planet) => {
         const baseY = scrollY - (variant === "section" ? sectionTopRef.current : 0);
         const offsetY = baseY * parallaxFactor * (planet.duration / 20);
+        const isHovered = hovered === planet.id;
         return (
           <motion.div
             key={planet.id}
@@ -144,14 +146,17 @@ export function FloatingPlanets({
             style={{
               left: `${planet.x}%`,
               top: `${planet.y}%`,
-              transform: `translateY(${-offsetY}px)`,
+              width: planet.size,
+              height: planet.size,
+              transform: `translate(-50%, calc(-50% + ${-offsetY}px))`,
             }}
           >
             <div
-              className="animate-orbit-drift-wide"
+              className="animate-orbit-drift-wide relative w-full h-full"
               style={{
                 animationDuration: `${planet.duration * 0.65}s`,
                 animationDelay: `${-planet.delay * 0.5}s`,
+                animationPlayState: isHovered ? "paused" : "running",
               }}
             >
               {/* Decorative orbit path */}
@@ -163,15 +168,17 @@ export function FloatingPlanets({
                   left: "50%",
                   top: "50%",
                   transform: "translate(-50%, -50%) rotateX(72deg) rotate(18deg)",
-                  borderColor: `${planet.color}1f`,
+                  borderColor: isHovered ? `${planet.color}80` : `${planet.color}1f`,
                   borderWidth: 1,
+                  transition: "border-color .3s",
                 }}
               />
               <div
-                className="animate-float-slow"
+                className="animate-float-slow relative w-full h-full"
                 style={{
                   animationDuration: `${planet.duration}s`,
                   animationDelay: `${planet.delay}s`,
+                  animationPlayState: isHovered ? "paused" : "running",
                 }}
               >
                 <div
@@ -179,22 +186,33 @@ export function FloatingPlanets({
                   style={{
                     left: "50%",
                     top: "50%",
-                    width: planet.size * 2.2,
-                    height: planet.size * 2.2,
+                    width: planet.size * (isHovered ? 3 : 2.2),
+                    height: planet.size * (isHovered ? 3 : 2.2),
                     transform: "translate(-50%, -50%)",
                     background: `radial-gradient(circle, ${planet.glow} 0%, transparent 65%)`,
                     animationDuration: `${planet.duration * 0.45}s`,
+                    transition: "width .35s ease, height .35s ease",
                   }}
                 />
-                <Planet3D
-                  size={planet.size}
-                  color={planet.color}
-                  glow={planet.glow}
-                  image={`/images/planets/tex-${planet.id}.jpg`}
-                  spinDuration={planet.duration * 2.2}
-                  ring={planet.hasRing}
-                  opacity={opacity}
-                />
+                <motion.div
+                  className="relative pointer-events-auto cursor-pointer"
+                  style={{ width: planet.size, height: planet.size }}
+                  animate={{ scale: isHovered ? 1.45 : 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 18 }}
+                  onHoverStart={() => setHovered(planet.id)}
+                  onHoverEnd={() => setHovered(null)}
+                >
+                  <Planet3D
+                    size={planet.size}
+                    color={planet.color}
+                    glow={planet.glow}
+                    image={`/images/planets/tex-${planet.id}.jpg`}
+                    spinDuration={planet.duration * (isHovered ? 0.9 : 2.2)}
+                    ring={planet.hasRing}
+                    highlighted={isHovered}
+                    opacity={isHovered ? 1 : opacity}
+                  />
+                </motion.div>
               </div>
             </div>
           </motion.div>
