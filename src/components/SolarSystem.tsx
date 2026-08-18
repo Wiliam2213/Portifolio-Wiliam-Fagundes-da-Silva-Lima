@@ -1,7 +1,8 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { PlanetData, PlanetId } from "../data/portfolio";
 import { planets } from "../data/portfolio";
+import { Planet3D } from "./Planet3D";
 
 interface SolarSystemProps {
   onPlanetClick: (id: PlanetId) => void;
@@ -9,6 +10,9 @@ interface SolarSystemProps {
   showSunLabel?: boolean;
   className?: string;
 }
+
+/** tilt of the orbital plane, in degrees */
+const PLANE_TILT = 62;
 
 export function SolarSystem({
   onPlanetClick,
@@ -18,28 +22,45 @@ export function SolarSystem({
 }: SolarSystemProps) {
   const [hoveredPlanet, setHoveredPlanet] = useState<PlanetId | null>(null);
 
-  const centerX = 50; // percentage
+  const centerX = 50;
   const centerY = 50;
 
   return (
-    <div className={`relative w-full h-full overflow-hidden ${className ?? ""}`}>
+    <div
+      className={`relative w-full h-full overflow-hidden ${className ?? ""}`}
+      style={{ perspective: "1400px", perspectiveOrigin: "50% 42%" }}
+    >
+      {/* Sun corona */}
+      <div
+        className="absolute rounded-full animate-glow-breathing pointer-events-none"
+        style={{
+          left: `${centerX}%`,
+          top: `${centerY}%`,
+          width: 320,
+          height: 320,
+          transform: "translate(-50%, -50%)",
+          background:
+            "radial-gradient(circle, rgba(255,180,80,0.28) 0%, rgba(255,110,0,0.12) 40%, transparent 70%)",
+          zIndex: 5,
+        }}
+      />
       {/* Sun */}
       <div
         className="absolute rounded-full animate-float"
         style={{
           left: `${centerX}%`,
           top: `${centerY}%`,
-          width: 80,
-          height: 80,
+          width: 84,
+          height: 84,
           transform: "translate(-50%, -50%)",
           background:
-            "radial-gradient(circle, #fff7d4 0%, #ffb347 40%, #ff6b00 70%, transparent 100%)",
+            "radial-gradient(circle at 42% 40%, #fffdf0 0%, #ffe08a 24%, #ffb347 52%, #ff6b00 78%, #b83200 100%)",
           boxShadow:
-            "0 0 60px 20px rgba(255,179,71,0.5), 0 0 120px 50px rgba(255,107,0,0.3), 0 0 200px 80px rgba(255,60,0,0.15)",
+            "0 0 70px 24px rgba(255,179,71,0.55), 0 0 140px 60px rgba(255,107,0,0.3), 0 0 240px 100px rgba(255,60,0,0.15)",
           zIndex: 10,
         }}
       />
-      {/* Sun label */}
+
       {showSunLabel && (
         <div
           className="absolute text-center pointer-events-none"
@@ -55,7 +76,6 @@ export function SolarSystem({
         </div>
       )}
 
-      {/* Orbits and planets */}
       {planets.map((planet) => (
         <OrbitRing
           key={planet.id}
@@ -64,6 +84,7 @@ export function SolarSystem({
           centerY={centerY}
           isHovered={hoveredPlanet === planet.id}
           isActive={activePlanet === planet.id}
+          dimmed={hoveredPlanet !== null && hoveredPlanet !== planet.id}
           onHover={setHoveredPlanet}
           onClick={onPlanetClick}
         />
@@ -78,6 +99,7 @@ interface OrbitRingProps {
   centerY: number;
   isHovered: boolean;
   isActive: boolean;
+  dimmed: boolean;
   onHover: (id: PlanetId | null) => void;
   onClick: (id: PlanetId) => void;
 }
@@ -88,136 +110,120 @@ function OrbitRing({
   centerY,
   isHovered,
   isActive,
+  dimmed,
   onHover,
   onClick,
 }: OrbitRingProps) {
   const orbitSize = planet.orbitRadius * 2;
+  const focused = isHovered || isActive;
+  const duration = planet.orbitDuration * 0.72;
 
   return (
-    <>
+    <div
+      className="absolute orbit-plane"
+      style={{
+        left: `${centerX}%`,
+        top: `${centerY}%`,
+        width: orbitSize,
+        height: orbitSize,
+        transform: `translate(-50%, -50%) rotateX(${PLANE_TILT}deg)`,
+        zIndex: 20 + planets.indexOf(planet),
+      }}
+    >
       {/* Orbit path */}
       <div
-        className="absolute rounded-full border pointer-events-none"
+        className="absolute inset-0 rounded-full border pointer-events-none"
         style={{
-          left: `${centerX}%`,
-          top: `${centerY}%`,
-          width: orbitSize,
-          height: orbitSize,
-          transform: "translate(-50%, -50%)",
-          borderColor: isHovered || isActive ? `${planet.color}44` : "rgba(255,255,255,0.08)",
-          transition: "border-color 0.3s",
+          borderColor: focused ? `${planet.color}66` : "rgba(255,255,255,0.07)",
+          boxShadow: focused ? `0 0 24px ${planet.glowColor}` : "none",
+          transition: "border-color .3s, box-shadow .3s",
         }}
       />
 
-      {/* Planet on orbit */}
+      {/* Revolving arm */}
       <div
-        className="absolute"
+        className="absolute inset-0"
         style={{
-          left: `${centerX}%`,
-          top: `${centerY}%`,
-          width: orbitSize,
-          height: orbitSize,
-          transform: "translate(-50%, -50%)",
-          animation: `orbit ${planet.orbitDuration * 0.72}s linear infinite`,
+          animation: `orbit ${duration}s linear infinite`,
           animationPlayState: isActive ? "paused" : "running",
-          zIndex: 20 + planets.indexOf(planet),
+          transformStyle: "preserve-3d",
         }}
       >
-        {/* Planet body - positioned at top center of orbit */}
         <motion.button
-          className="absolute cursor-pointer group pointer-events-auto"
+          className="absolute cursor-pointer pointer-events-auto"
           style={{
             left: "50%",
             top: 0,
             width: planet.size,
             height: planet.size,
             transform: "translate(-50%, -50%)",
+            transformStyle: "preserve-3d",
           }}
           aria-label={`${planet.name}: ${planet.section}`}
-          whileHover={{ scale: 1.3 }}
+          whileHover={{ scale: 1.35 }}
           whileTap={{ scale: 0.95 }}
           onHoverStart={() => onHover(planet.id)}
           onHoverEnd={() => onHover(null)}
+          onFocus={() => onHover(planet.id)}
+          onBlur={() => onHover(null)}
           onClick={() => onClick(planet.id)}
         >
-          {/* Counter-rotate so planet doesn't spin */}
+          {/* counter-rotate the orbital revolution */}
           <div
             style={{
               width: "100%",
               height: "100%",
-              animation: `orbit ${planet.orbitDuration * 0.72}s linear infinite reverse`,
+              animation: `orbit ${duration}s linear infinite reverse`,
               animationPlayState: isActive ? "paused" : "running",
+              transformStyle: "preserve-3d",
             }}
           >
-            {/* Pulsing glow halo */}
+            {/* stand the planet back up out of the orbital plane */}
             <div
-              className="absolute rounded-full animate-glow-breathing pointer-events-none"
+              className="relative"
               style={{
-                left: "50%",
-                top: "50%",
-                width: planet.size * 2.4,
-                height: planet.size * 2.4,
-                transform: "translate(-50%, -50%)",
-                background: `radial-gradient(circle, ${planet.glowColor} 0%, transparent 65%)`,
-                animationDuration: `${planet.orbitDuration * 0.6}s`,
+                width: "100%",
+                height: "100%",
+                transform: `rotateX(-${PLANE_TILT}deg)`,
+                opacity: dimmed ? 0.55 : 1,
+                transition: "opacity .3s",
               }}
-            />
-            <div
-              className="animate-planet-spin"
-              style={{ animationDuration: `${planet.orbitDuration * 1.4}s` }}
             >
-              <div
-                className="w-full h-full rounded-full bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(${planet.image})`,
-                  backgroundColor: planet.color,
-                  boxShadow:
-                    isHovered || isActive
-                      ? `0 0 20px 8px ${planet.glowColor}, 0 0 40px 16px ${planet.glowColor}`
-                      : `0 0 10px 3px ${planet.glowColor}`,
-                  transition: "box-shadow 0.3s",
-                }}
+              <Planet3D
+                size={planet.size}
+                color={planet.color}
+                glow={planet.glowColor}
+                image={planet.image}
+                spinDuration={planet.orbitDuration * 1.6}
+                ring={planet.id === "saturn"}
+                highlighted={focused}
               />
+
+              <AnimatePresence>
+                {focused && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    className="absolute left-1/2 whitespace-nowrap pointer-events-none"
+                    style={{ top: planet.size + 10, transform: "translateX(-50%)" }}
+                  >
+                    <p
+                      className="font-mono text-[10px] font-bold"
+                      style={{ color: planet.color }}
+                    >
+                      {planet.name}
+                    </p>
+                    <p className="font-mono text-[9px] text-muted-foreground text-center">
+                      {planet.section}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            {/* Saturn ring */}
-            {planet.id === "saturn" && (
-              <div
-                className="absolute rounded-full border-2 pointer-events-none"
-                style={{
-                  width: planet.size * 1.8,
-                  height: planet.size * 0.5,
-                  left: "50%",
-                  top: "50%",
-                  transform: "translate(-50%, -50%) rotateX(70deg)",
-                  borderColor: "rgba(232,213,163,0.5)",
-                }}
-              />
-            )}
-            {/* Label */}
-            <AnimatePresence>
-              {(isHovered || isActive) && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 whitespace-nowrap pointer-events-none"
-                  style={{
-                    top: planet.size + 8,
-                    transform: "translateX(-50%)",
-                  }}
-                >
-                  <p className="font-mono text-[10px] font-bold" style={{ color: planet.color }}>
-                    {planet.name}
-                  </p>
-                  <p className="font-mono text-[9px] text-muted-foreground text-center">
-                    {planet.section}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
         </motion.button>
       </div>
-    </>
+    </div>
   );
 }
