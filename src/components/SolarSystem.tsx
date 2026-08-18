@@ -6,16 +6,23 @@ import { planets } from "../data/portfolio";
 interface SolarSystemProps {
   onPlanetClick: (id: PlanetId) => void;
   activePlanet: PlanetId | null;
+  showSunLabel?: boolean;
+  className?: string;
 }
 
-export function SolarSystem({ onPlanetClick, activePlanet }: SolarSystemProps) {
+export function SolarSystem({
+  onPlanetClick,
+  activePlanet,
+  showSunLabel = true,
+  className,
+}: SolarSystemProps) {
   const [hoveredPlanet, setHoveredPlanet] = useState<PlanetId | null>(null);
 
   const centerX = 50; // percentage
   const centerY = 50;
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className={`relative w-full h-full overflow-hidden ${className ?? ""}`}>
       {/* Sun */}
       <div
         className="absolute rounded-full animate-float"
@@ -33,18 +40,20 @@ export function SolarSystem({ onPlanetClick, activePlanet }: SolarSystemProps) {
         }}
       />
       {/* Sun label */}
-      <div
-        className="absolute text-center pointer-events-none"
-        style={{
-          left: `${centerX}%`,
-          top: `${centerY}%`,
-          transform: "translate(-50%, 56px)",
-          zIndex: 11,
-        }}
-      >
-        <p className="font-display text-sm font-bold text-accent">Wiliam Fagundes</p>
-        <p className="font-mono text-[10px] text-muted-foreground">Full Stack Developer</p>
-      </div>
+      {showSunLabel && (
+        <div
+          className="absolute text-center pointer-events-none"
+          style={{
+            left: `${centerX}%`,
+            top: `${centerY}%`,
+            transform: "translate(-50%, 56px)",
+            zIndex: 11,
+          }}
+        >
+          <p className="font-display text-sm font-bold text-accent">Wiliam Fagundes</p>
+          <p className="font-mono text-[10px] text-muted-foreground">Full Stack Developer</p>
+        </div>
+      )}
 
       {/* Orbits and planets */}
       {planets.map((planet) => (
@@ -109,14 +118,14 @@ function OrbitRing({
           width: orbitSize,
           height: orbitSize,
           transform: "translate(-50%, -50%)",
-          animation: `orbit ${planet.orbitDuration}s linear infinite`,
+          animation: `orbit ${planet.orbitDuration * 0.72}s linear infinite`,
           animationPlayState: isActive ? "paused" : "running",
           zIndex: 20 + planets.indexOf(planet),
         }}
       >
         {/* Planet body - positioned at top center of orbit */}
         <motion.button
-          className="absolute cursor-pointer group"
+          className="absolute cursor-pointer group pointer-events-auto"
           style={{
             left: "50%",
             top: 0,
@@ -124,6 +133,7 @@ function OrbitRing({
             height: planet.size,
             transform: "translate(-50%, -50%)",
           }}
+          aria-label={`${planet.name}: ${planet.section}`}
           whileHover={{ scale: 1.3 }}
           whileTap={{ scale: 0.95 }}
           onHoverStart={() => onHover(planet.id)}
@@ -135,22 +145,40 @@ function OrbitRing({
             style={{
               width: "100%",
               height: "100%",
-              animation: `orbit ${planet.orbitDuration}s linear infinite reverse`,
+              animation: `orbit ${planet.orbitDuration * 0.72}s linear infinite reverse`,
               animationPlayState: isActive ? "paused" : "running",
             }}
           >
+            {/* Pulsing glow halo */}
             <div
-              className="w-full h-full rounded-full bg-cover bg-center"
+              className="absolute rounded-full animate-glow-breathing pointer-events-none"
               style={{
-                backgroundImage: `url(${planet.image})`,
-                backgroundColor: planet.color,
-                boxShadow:
-                  isHovered || isActive
-                    ? `0 0 20px 8px ${planet.glowColor}, 0 0 40px 16px ${planet.glowColor}`
-                    : `0 0 10px 3px ${planet.glowColor}`,
-                transition: "box-shadow 0.3s",
+                left: "50%",
+                top: "50%",
+                width: planet.size * 2.4,
+                height: planet.size * 2.4,
+                transform: "translate(-50%, -50%)",
+                background: `radial-gradient(circle, ${planet.glowColor} 0%, transparent 65%)`,
+                animationDuration: `${planet.orbitDuration * 0.6}s`,
               }}
             />
+            <div
+              className="animate-planet-spin"
+              style={{ animationDuration: `${planet.orbitDuration * 1.4}s` }}
+            >
+              <div
+                className="w-full h-full rounded-full bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${planet.image})`,
+                  backgroundColor: planet.color,
+                  boxShadow:
+                    isHovered || isActive
+                      ? `0 0 20px 8px ${planet.glowColor}, 0 0 40px 16px ${planet.glowColor}`
+                      : `0 0 10px 3px ${planet.glowColor}`,
+                  transition: "box-shadow 0.3s",
+                }}
+              />
+            </div>
             {/* Saturn ring */}
             {planet.id === "saturn" && (
               <div

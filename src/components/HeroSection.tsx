@@ -1,18 +1,46 @@
+import { useRef } from "react";
 import { profile } from "../data/portfolio";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import type { PlanetId } from "../data/portfolio";
+import { SolarSystem } from "./SolarSystem";
+
+const SECTION_BY_PLANET: Record<PlanetId, string> = {
+  mercury: "#habilidades",
+  venus: "#experiencia",
+  earth: "#projetos",
+  mars: "#habilidades",
+  jupiter: "#experiencia",
+  saturn: "#contato",
+};
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+  const opacity = useTransform(scrollYProgress, [0, 0.55], [1, 0.3]);
+
+  const handlePlanetClick = (id: PlanetId) => {
+    const selector = SECTION_BY_PLANET[id];
+    document.querySelector(selector)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <section
       id="inicio"
+      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden"
     >
-      {/* Central sun glow */}
+      {/* Orbiting solar system backdrop */}
+      <motion.div className="absolute inset-0 z-0 pointer-events-none" style={{ scale, opacity }}>
+        <SolarSystem onPlanetClick={handlePlanetClick} activePlanet={null} showSunLabel={false} />
+      </motion.div>
 
-
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
         {/* Header: Name + Photo side by side */}
-        <motion.div 
+        <motion.div
           className="flex flex-col lg:flex-row items-center justify-center gap-12 mb-12"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,28 +59,26 @@ export function HeroSection() {
           </div>
 
           {/* Circular Profile Photo */}
-          <motion.div 
+          <motion.div
             className="lg:order-2 w-48 h-48 lg:w-64 lg:h-64 flex-shrink-0"
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 100 }}
           >
-
-            <motion.img 
-              src="/images/planets/WhatsApp Image 2026-04-15 at 14.56.58.jpeg" 
+            <motion.img
+              src="/images/planets/WhatsApp Image 2026-04-15 at 14.56.58.jpeg"
               alt="Wiliam Fagundes"
-className="w-full h-full object-cover rounded-full shadow-2xl ring-0 transition-all duration-500 relative z-10 cursor-default
+              className="w-full h-full object-cover rounded-full shadow-2xl ring-0 transition-all duration-500 relative z-10 cursor-default
                          hover:shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:scale-[1.02]"
               initial={{ scale: 0.9 }}
               whileHover={{ scale: 1.05, rotate: 5 }}
               transition={{ type: "spring", stiffness: 400 }}
             />
-
           </motion.div>
         </motion.div>
 
         {/* Description */}
-        <motion.p 
+        <motion.p
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -107,11 +133,17 @@ className="w-full h-full object-cover rounded-full shadow-2xl ring-0 transition-
           </SocialIcon>
           <SocialIcon href={profile.linkedin} label="LinkedIn">
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722 .722-2.004 1.418-.103 .249-.129 .597-.129 .946v5.441h-3.554s.05-8.736 0-9.646h3.554v1.348c.42-.648 1.36-1.573 3.322-1.573 2.429 0 4.251 1.574 4.251 4.963v5.908zM5.337 8.855c-1.144 0-1.915-.762-1.915-1.715 0-.955 .77-1.715 1.958-1.715 1.187 0 1.927 .76 1.927 1.715 0 .953-.74 1.715-1.97 1.715zm1.946 11.597H3.392V9.806h3.891v10.646zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227 .792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.004 1.418-.103.249-.129.597-.129.946v5.441h-3.554s.05-8.736 0-9.646h3.554v1.348c.42-.648 1.36-1.573 3.322-1.573 2.429 0 4.251 1.574 4.251 4.963v5.908zM5.337 8.855c-1.144 0-1.915-.762-1.915-1.715 0-.955.77-1.715 1.958-1.715 1.187 0 1.927.76 1.927 1.715 0 .953-.74 1.715-1.97 1.715zm1.946 11.597H3.392V9.806h3.891v10.646zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
             </svg>
           </SocialIcon>
           <SocialIcon href={`mailto:${profile.email}`} label="Email">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="w-6 h-6"
+            >
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
@@ -125,7 +157,13 @@ className="w-full h-full object-cover rounded-full shadow-2xl ring-0 transition-
           transition={{ delay: 1.2, type: "spring" }}
           className="animate-bounce-slow text-primary"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8 mx-auto">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="w-8 h-8 mx-auto"
+          >
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </motion.div>
@@ -149,12 +187,11 @@ function SocialIcon({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-14 h-14 flex items-center justify-center rounded-xl border border-primary/40 text-primary bg-primary/5 
-                 hover:bg-primary hover:text-primary-foreground hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,217,255,0.5)] 
+      className="w-14 h-14 flex items-center justify-center rounded-xl border border-primary/40 text-primary bg-primary/5
+                 hover:bg-primary hover:text-primary-foreground hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,217,255,0.5)]
                  transition-all duration-300"
     >
       {children}
     </a>
   );
 }
-

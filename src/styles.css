@@ -1,6 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -131,6 +131,22 @@
     opacity: 1;
   }
 }
+@keyframes orbit {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes orbit-slow {
+  from {
+    transform: rotate(0deg) translateX(var(--orbit-r, 60px)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--orbit-r, 60px)) rotate(-360deg);
+  }
+}
 @keyframes orbit-drift {
   0% {
     transform: translate(0, 0);
@@ -147,6 +163,105 @@
   100% {
     transform: translate(0, 0);
   }
+}
+@keyframes orbit-drift-wide {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(64px, -42px);
+  }
+  50% {
+    transform: translate(0, -22px);
+  }
+  75% {
+    transform: translate(-64px, -42px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes planet-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes comet-cross {
+  0% {
+    transform: translateX(-15vw);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(115vw);
+    opacity: 0;
+  }
+}
+@keyframes asteroid-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-48px);
+  }
+}
+@keyframes glow-breathing {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.06);
+  }
+}
+@keyframes dash-move {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+@keyframes route-travel {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.route-line {
+  stroke-dasharray: 6 18;
+  animation: dash-move 2.4s linear infinite;
+}
+.route-ship {
+  position: absolute;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow:
+    0 0 12px 4px rgba(0, 217, 255, 0.8),
+    0 0 28px 10px rgba(0, 217, 255, 0.35);
+  animation: route-travel 3.5s ease-in-out infinite;
 }
 @keyframes star-twinkle {
   0%,
@@ -236,6 +351,50 @@
 .animate-bounce-slow {
   animation: bounce 2s ease-in-out infinite;
 }
+.animate-orbit-slow {
+  animation: orbit-slow var(--orbit-duration, 20s) linear infinite;
+}
+.animate-orbit-drift {
+  animation: orbit-drift 14s ease-in-out infinite;
+}
+.animate-orbit-drift-wide {
+  animation: orbit-drift-wide 16s ease-in-out infinite;
+}
+.animate-planet-spin {
+  animation: planet-spin 24s linear infinite;
+}
+.animate-asteroid-drift {
+  animation: asteroid-drift 26s linear infinite;
+}
+.animate-glow-breathing {
+  animation: glow-breathing 3.2s ease-in-out infinite;
+}
+
+.comet-trail {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 120px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.9), #ffffff);
+  box-shadow: 0 0 14px 3px rgba(0, 217, 255, 0.45);
+  animation: comet-cross 11s linear infinite;
+  will-change: transform;
+}
+
+.asteroid-belt {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  width: max-content;
+}
+.asteroid-belt .asteroid {
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, #8b93ad, #4a5069 60%, #2b2f45);
+  box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.08);
+  opacity: 0.7;
+}
 
 /* Glass card effect */
 .glass-card {
@@ -286,4 +445,15 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

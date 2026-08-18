@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
 import { experience } from "../data/portfolio";
+import { FloatingPlanets } from "./FloatingPlanets";
+import { SectionDivider } from "./SectionDivider";
 
 export function ExperienceSection() {
   return (
-    <section id="experiencia" className="py-24 relative">
-      <div className="section-glow-line mb-24" />
-      <div className="max-w-4xl mx-auto px-6">
+    <section id="experiencia" className="py-24 relative overflow-hidden">
+      <SectionDivider className="mb-24" />
+      <FloatingPlanets variant="section" planetIds={["venus", "jupiter"]} opacity={0.32} />
+      <div className="relative z-10 max-w-4xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -24,58 +27,109 @@ export function ExperienceSection() {
           Minha trajetória profissional e background diversificado.
         </motion.p>
 
-        <div className="space-y-0">
-          {experience.map((exp, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className="flex gap-6 mb-10 last:mb-0"
-            >
-              {/* Timeline marker */}
-              <div className="flex flex-col items-center shrink-0">
-                <div
-                  className="w-4 h-4 rounded-full border-2 border-background mt-2"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, var(--color-primary), var(--color-accent))",
-                    boxShadow: "0 0 12px rgba(0,217,255,0.5)",
-                  }}
-                />
-                {i < experience.length - 1 && (
-                  <div className="w-0.5 flex-1 mt-2 bg-gradient-to-b from-primary/40 to-transparent" />
-                )}
-              </div>
+        <div className="relative">
+          {/* Curved orbital trajectory */}
+          <svg
+            className="absolute left-0 top-7 h-[calc(100%-56px)] w-10 pointer-events-none hidden sm:block"
+            viewBox="0 0 40 100"
+            fill="none"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="route-gradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--color-primary)" />
+                <stop offset="100%" stopColor="var(--color-accent)" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M8 0 C -6 20, 24 32, 8 50 S -4 78, 8 100"
+              stroke="url(#route-gradient)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              className="route-line"
+              opacity="0.45"
+            />
+            <motion.path
+              d="M8 0 C -6 20, 24 32, 8 50 S -4 78, 8 100"
+              stroke="url(#route-gradient)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              whileInView={{ pathLength: 1, opacity: 0.9 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 2.2, ease: "easeInOut" }}
+            />
+          </svg>
 
-              {/* Content */}
-              <div className="glass-card rounded-xl p-6 flex-grow">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-                  <div>
-                    <h3 className="font-display font-bold text-lg text-foreground">{exp.role}</h3>
-                    <p className="text-primary text-sm font-medium">{exp.company}</p>
-                  </div>
-                  <span className="font-mono text-xs text-muted-foreground bg-secondary px-3 py-1 rounded-full self-start">
-                    {exp.period}
-                  </span>
+          <div className="space-y-0">
+            {experience.map((exp, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+                className="flex gap-6 mb-10 last:mb-0"
+              >
+                {/* Timeline marker */}
+                <div className="flex flex-col items-center shrink-0">
+                  <motion.div
+                    className="relative w-4 h-4"
+                    initial={{ scale: 0.3, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                  >
+                    <div
+                      className="absolute -inset-2 rounded-full bg-primary/25 animate-glow-breathing"
+                      style={{ animationDuration: "3.2s" }}
+                    />
+                    <div
+                      className="w-4 h-4 rounded-full border-2 border-background relative"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, var(--color-primary), var(--color-accent))",
+                        boxShadow: "0 0 14px 4px rgba(0,217,255,0.6)",
+                      }}
+                    />
+                  </motion.div>
+                  {i < experience.length - 1 && (
+                    <div className="relative w-2 flex-1 mt-3 min-h-[60px]">
+                      <div className="absolute inset-x-1 top-0 bottom-0 bg-gradient-to-b from-primary/50 via-accent/40 to-transparent rounded-full opacity-60" />
+                      <div className="route-ship" />
+                    </div>
+                  )}
                 </div>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                  {exp.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {exp.highlights.map((h) => (
-                    <span
-                      key={h}
-                      className="px-2.5 py-1 text-xs font-medium rounded-md bg-primary/8 text-primary border border-primary/20"
-                    >
-                      {h}
+
+                {/* Content */}
+                <div className="glass-card rounded-xl p-6 flex-grow">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+                    <div>
+                      <h3 className="font-display font-bold text-lg text-foreground">{exp.role}</h3>
+                      <p className="text-primary text-sm font-medium">{exp.company}</p>
+                    </div>
+                    <span className="font-mono text-xs text-muted-foreground bg-secondary px-3 py-1 rounded-full self-start">
+                      {exp.period}
                     </span>
-                  ))}
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    {exp.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {exp.highlights.map((h) => (
+                      <span
+                        key={h}
+                        className="px-2.5 py-1 text-xs font-medium rounded-md bg-primary/8 text-primary border border-primary/20"
+                      >
+                        {h}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Achievements */}
@@ -127,6 +181,10 @@ export function ExperienceSection() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
+                whileHover={{
+                  scale: 1.04,
+                  boxShadow: "0 0 26px -4px rgba(74,158,255,0.45)",
+                }}
                 className="glass-card rounded-xl p-5 flex items-start gap-3"
               >
                 <span className="text-2xl">{item.icon}</span>

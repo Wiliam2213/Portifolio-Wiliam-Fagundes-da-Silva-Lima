@@ -1,22 +1,29 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
-import { projects, profile } from "../data/portfolio";
+import { planets, projects, profile } from "../data/portfolio";
 import { ProjectPreview } from "./ProjectPreview";
+import { SectionDivider } from "./SectionDivider";
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
+  show: { transition: { staggerChildren: 0.15 } },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
+  hidden: { opacity: 0, scale: 0.78, y: 50, filter: "blur(8px)" },
+  show: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
+  },
 };
 
 export function ProjectsSection() {
   return (
-    <section id="projetos" className="relative py-20 md:py-28">
-      <div className="section-glow-line mb-16 md:mb-20" />
+    <section id="projetos" className="relative py-20 md:py-28 overflow-hidden">
+      <SectionDivider className="mb-16 md:mb-20" />
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -43,50 +50,60 @@ export function ProjectsSection() {
           viewport={{ once: true, margin: "-60px" }}
           className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2"
         >
-          {projects.map((project) => (
-            <motion.article
-              key={project.title}
-              variants={item}
-              whileHover={{ y: -8 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className="group/preview glass-card flex flex-col overflow-hidden rounded-xl transition-shadow duration-300 hover:shadow-[0_20px_60px_-20px_rgba(0,217,255,0.35)]"
-            >
-              <ProjectPreview url={project.url} title={project.title} />
+          {projects.map((project, i) => {
+            const planet = planets[i % planets.length];
+            return (
+              <motion.article
+                key={project.title}
+                variants={item}
+                whileHover={{
+                  y: -10,
+                  scale: 1.02,
+                  boxShadow: `0 20px 60px -20px ${planet.glowColor}, 0 0 30px -5px ${planet.glowColor}`,
+                }}
+                transition={{ type: "spring", stiffness: 240, damping: 22 }}
+                className="group/preview glass-card flex flex-col overflow-hidden rounded-xl"
+                style={{ borderColor: `${planet.color}22` }}
+              >
+                <ProjectPreview url={project.url} title={project.title} />
 
-              <div className="flex flex-grow flex-col gap-3 p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-display text-lg font-bold text-primary">{project.title}</h3>
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Abrir ${project.title}`}
-                    className="shrink-0 rounded-md border border-border/60 p-1.5 text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary"
-                  >
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                </div>
-
-                <p className="text-sm leading-relaxed text-muted-foreground">{project.description}</p>
-
-                <div className="grid gap-2">
-                  <Detail label="Solução" text={project.solution} />
-                  <Detail label="Impacto" text={project.impact} />
-                </div>
-
-                <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded border border-accent/30 bg-accent/5 px-2 py-0.5 font-mono text-[11px] font-medium text-accent"
+                <div className="flex flex-grow flex-col gap-3 p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="font-display text-lg font-bold text-primary">{project.title}</h3>
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Abrir ${project.title}`}
+                      className="shrink-0 rounded-md border border-border/60 p-1.5 text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary"
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  </div>
+
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {project.description}
+                  </p>
+
+                  <div className="grid gap-2">
+                    <Detail label="Solução" text={project.solution} />
+                    <Detail label="Impacto" text={project.impact} />
+                  </div>
+
+                  <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded border border-accent/30 bg-accent/5 px-2 py-0.5 font-mono text-[11px] font-medium text-accent"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            );
+          })}
         </motion.div>
 
         <motion.div

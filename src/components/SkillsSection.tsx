@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { planets } from "../data/portfolio";
+import { SectionDivider } from "./SectionDivider";
 
 const skillCategories = [
   {
@@ -40,10 +42,12 @@ const proficiency = [
   { label: "Docker, Python, DevOps", level: 40, title: "Aprendendo" },
 ];
 
+const asteroidSizes = [8, 5, 11, 4, 9, 6, 7, 10, 5, 8, 6, 9, 4, 7, 11, 5, 8, 6, 10];
+
 export function SkillsSection() {
   return (
-    <section id="habilidades" className="py-24 relative">
-      <div className="section-glow-line mb-24" />
+    <section id="habilidades" className="py-24 relative overflow-hidden">
+      <SectionDivider className="mb-16" />
       <div className="max-w-6xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -58,37 +62,62 @@ export function SkillsSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-center text-muted-foreground mb-16 max-w-xl mx-auto"
+          className="text-center text-muted-foreground mb-12 max-w-xl mx-auto"
         >
           Tecnologias e ferramentas que utilizo para criar soluções robustas e escaláveis.
         </motion.p>
 
+        {/* Asteroid belt */}
+        <div className="flex justify-center overflow-hidden mb-16" aria-hidden="true">
+          <div className="asteroid-belt animate-asteroid-drift">
+            {asteroidSizes.map((size, i) => (
+              <span key={i} className="asteroid shrink-0" style={{ width: size, height: size }} />
+            ))}
+          </div>
+        </div>
+
         {/* Skills grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {skillCategories.map((cat, i) => (
-            <motion.div
-              key={cat.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="glass-card rounded-xl p-6 text-center"
-            >
-              <div className="text-3xl mb-3">{cat.icon}</div>
-              <h3 className="font-display font-semibold text-primary mb-4">{cat.title}</h3>
-              <div className="flex flex-wrap gap-2 justify-center">
-                {cat.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1 text-xs font-medium rounded-md border border-primary/25 text-primary bg-primary/5
-                      hover:bg-primary hover:text-primary-foreground transition-all duration-200 cursor-default"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+          {skillCategories.map((cat, i) => {
+            const planet = planets[i % planets.length];
+            return (
+              <motion.div
+                key={cat.title}
+                initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ delay: (i % 3) * 0.08, duration: 0.5 }}
+                whileHover={{
+                  scale: 1.04,
+                  y: -6,
+                  boxShadow: `0 0 34px 2px ${planet.glowColor}, 0 18px 50px -20px rgba(0,0,0,0.6)`,
+                }}
+                className="glass-card rounded-xl p-6 text-center"
+              >
+                <div
+                  className="animate-float"
+                  style={{
+                    animationDuration: `${5 + (i % 4)}s`,
+                    animationDelay: `${i * 0.5}s`,
+                  }}
+                >
+                  <div className="text-3xl mb-3">{cat.icon}</div>
+                  <h3 className="font-display font-semibold text-primary mb-4">{cat.title}</h3>
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {cat.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-3 py-1 text-xs font-medium rounded-md border border-primary/25 text-primary bg-primary/5
+                          hover:bg-primary hover:text-primary-foreground transition-all duration-200 cursor-default"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Proficiency bars */}
