@@ -190,7 +190,7 @@ export function FloatingPlanets({
                   size={planet.size}
                   color={planet.color}
                   glow={planet.glow}
-                  image={`/images/planets/p-${planet.id}.png`}
+                  image={`/images/planets/tex-${planet.id}.jpg`}
                   spinDuration={planet.duration * 2.2}
                   ring={planet.hasRing}
                   opacity={opacity}

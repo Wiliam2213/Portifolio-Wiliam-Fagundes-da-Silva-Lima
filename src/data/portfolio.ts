@@ -22,7 +22,7 @@ export const planets: PlanetData[] = [
     orbitRadius: 100,
     orbitDuration: 8,
     size: 22,
-    image: "/images/planets/p-mercury.png",
+    image: "/images/planets/tex-mercury.jpg",
   },
   {
     id: "venus",
@@ -33,7 +33,7 @@ export const planets: PlanetData[] = [
     orbitRadius: 155,
     orbitDuration: 12,
     size: 30,
-    image: "/images/planets/p-venus.png",
+    image: "/images/planets/tex-venus.jpg",
   },
   {
     id: "earth",
@@ -44,7 +44,7 @@ export const planets: PlanetData[] = [
     orbitRadius: 215,
     orbitDuration: 16,
     size: 32,
-    image: "/images/planets/p-earth.png",
+    image: "/images/planets/tex-earth.jpg",
   },
   {
     id: "mars",
@@ -55,7 +55,7 @@ export const planets: PlanetData[] = [
     orbitRadius: 275,
     orbitDuration: 22,
     size: 26,
-    image: "/images/planets/p-mars.png",
+    image: "/images/planets/tex-mars.jpg",
   },
   {
     id: "jupiter",
@@ -66,7 +66,7 @@ export const planets: PlanetData[] = [
     orbitRadius: 355,
     orbitDuration: 30,
     size: 48,
-    image: "/images/planets/p-jupiter.png",
+    image: "/images/planets/tex-jupiter.jpg",
   },
   {
     id: "saturn",
@@ -77,7 +77,7 @@ export const planets: PlanetData[] = [
     orbitRadius: 440,
     orbitDuration: 38,
     size: 42,
-    image: "/images/planets/p-saturn.png",
+    image: "/images/planets/tex-saturn.jpg",
   },
 ];
 
