@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import type { PlanetId } from "../data/portfolio";
+import { Planet3D } from "./Planet3D";
 
 interface FloatingPlanet {
   id: PlanetId;
@@ -173,7 +174,6 @@ export function FloatingPlanets({
                   animationDelay: `${planet.delay}s`,
                 }}
               >
-                {/* Pulsing glow halo */}
                 <div
                   className="absolute rounded-full animate-glow-breathing pointer-events-none"
                   style={{
@@ -186,35 +186,15 @@ export function FloatingPlanets({
                     animationDuration: `${planet.duration * 0.45}s`,
                   }}
                 />
-                <div
-                  className="animate-planet-spin"
-                  style={{ animationDuration: `${planet.duration * 1.2}s` }}
-                >
-                  <div
-                    className="rounded-full"
-                    style={{
-                      width: planet.size,
-                      height: planet.size,
-                      background: `radial-gradient(circle at 35% 35%, ${planet.color}ee, ${planet.color}88 50%, ${planet.color}44 100%)`,
-                      boxShadow: `0 0 ${planet.size * 0.6}px ${planet.size * 0.2}px ${planet.glow}`,
-                      opacity,
-                    }}
-                  />
-                </div>
-                {planet.hasRing && (
-                  <div
-                    className="absolute rounded-full border pointer-events-none"
-                    style={{
-                      width: planet.size * 1.8,
-                      height: planet.size * 0.45,
-                      left: "50%",
-                      top: "50%",
-                      transform: "translate(-50%, -50%) rotateX(70deg)",
-                      borderColor: `${planet.color}44`,
-                      borderWidth: 1.5,
-                    }}
-                  />
-                )}
+                <Planet3D
+                  size={planet.size}
+                  color={planet.color}
+                  glow={planet.glow}
+                  image={`/images/planets/p-${planet.id}.png`}
+                  spinDuration={planet.duration * 2.2}
+                  ring={planet.hasRing}
+                  opacity={opacity}
+                />
               </div>
             </div>
           </motion.div>
