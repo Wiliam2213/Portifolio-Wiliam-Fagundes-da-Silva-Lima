@@ -1,4 +1,5 @@
 import { AboutSection } from "./components/AboutSection";
+import { AsteroidsSection } from "./components/AsteroidsSection";
 import { ContactSection } from "./components/ContactSection";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { HeroSection } from "./components/HeroSection";
@@ -25,6 +26,7 @@ export default function App() {
           <SkillsSection />
           <ProjectsSection />
           <ExperienceSection />
+          <AsteroidsSection />
           <ContactSection />
         </main>
       </div>

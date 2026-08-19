@@ -48,6 +48,7 @@ const ZONES = [
   { id: "habilidades", r: 68, g: 54, b: 18 },
   { id: "projetos", r: 12, g: 40, b: 92 },
   { id: "experiencia", r: 70, g: 58, b: 22 },
+  { id: "arcade", r: 30, g: 20, b: 70 },
   { id: "contato", r: 62, g: 54, b: 32 },
 ];
 
