@@ -27,7 +27,9 @@ export function SolarSystem({
 
   return (
     <div
-      className={`relative w-full h-full overflow-hidden ${className ?? ""}`}
+      className={`relative w-full h-full overflow-hidden pointer-events-none ${
+        className ?? ""
+      }`}
       style={{ perspective: "1400px", perspectiveOrigin: "50% 42%" }}
     >
       {/* Sun corona */}
@@ -116,7 +118,7 @@ function OrbitRing({
 }: OrbitRingProps) {
   const orbitSize = planet.orbitRadius * 2;
   const focused = isHovered || isActive;
-  const duration = planet.orbitDuration * 0.72;
+  const duration = planet.orbitDuration * 1.44;
 
   return (
     <div
