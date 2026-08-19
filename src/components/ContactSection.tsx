@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { contactLinks, profile } from "../data/portfolio";
+import { FloatingPlanets } from "./FloatingPlanets";
+import { SectionDivider } from "./SectionDivider";
 import curriculo from "../assets/curriculo.pdf.asset.json";
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -29,31 +31,59 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export function ContactSection() {
   return (
-    <section id="contato" className="py-24 relative">
-      <div className="section-glow-line mb-24" />
-      <div className="max-w-3xl mx-auto px-6">
+    <section id="contato" className="py-24 relative overflow-hidden">
+      <SectionDivider className="mb-24" />
+
+      {/* Destination planet */}
+      <div
+        className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[560px] h-[560px] pointer-events-none z-0"
+        aria-hidden="true"
+      >
+        <div
+          className="absolute inset-0 rounded-full animate-glow-breathing"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(232,213,163,0.18) 0%, rgba(232,213,163,0.06) 45%, transparent 70%)",
+            animationDuration: "6s",
+          }}
+        />
+        <div
+          className="absolute inset-16 rounded-full bg-cover bg-center animate-float-slow opacity-60"
+          style={{
+            backgroundImage: "url(/images/planets/p-saturn.png)",
+            backgroundColor: "#e8d5a3",
+            boxShadow: "0 0 60px 10px rgba(232,213,163,0.25)",
+          }}
+        />
+      </div>
+
+      <FloatingPlanets variant="section" planetIds={["venus"]} opacity={0.3} />
+
+      <div className="relative z-10 max-w-3xl mx-auto px-6">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-4xl md:text-5xl font-display font-bold text-center mb-4 neon-gradient-text"
         >
           Contato
         </motion.h2>
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
           className="text-center text-muted-foreground mb-16 max-w-md mx-auto"
         >
           Vamos conectar! Estou sempre aberto a novas oportunidades e parcerias.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
           className="mb-10 flex justify-center"
         >
           <a
@@ -74,10 +104,14 @@ export function ContactSection() {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: -30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.1, duration: 0.6, ease: "easeOut" }}
+              whileHover={{
+                scale: 1.03,
+                boxShadow: "0 0 26px -4px rgba(232,213,163,0.4)",
+              }}
               className="glass-card rounded-xl p-5 flex items-center gap-4 group cursor-pointer"
             >
               <div
@@ -102,9 +136,10 @@ export function ContactSection() {
 
         {/* Footer info */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
           className="text-center space-y-3"
         >
           <div className="section-glow-line mb-8" />

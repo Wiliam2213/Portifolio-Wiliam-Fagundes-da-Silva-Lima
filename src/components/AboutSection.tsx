@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { FloatingPlanets } from "./FloatingPlanets";
+import { SectionDivider } from "./SectionDivider";
 
 const softSkills = [
   "Proatividade",
@@ -11,9 +13,10 @@ const softSkills = [
 
 export function AboutSection() {
   return (
-    <section id="sobre" className="py-24 relative">
-      <div className="section-glow-line mb-24" />
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="sobre" className="py-24 relative overflow-hidden">
+      <SectionDivider className="mb-24" />
+      <FloatingPlanets variant="section" planetIds={["earth", "venus", "saturn"]} opacity={0.38} />
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

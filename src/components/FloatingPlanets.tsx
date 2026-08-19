@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import type { PlanetId } from "../data/portfolio";
+import { Planet3D } from "./Planet3D";
 
 interface FloatingPlanet {
-  id: string;
+  id: PlanetId;
   size: number;
   x: number;
   y: number;
@@ -11,6 +13,13 @@ interface FloatingPlanet {
   duration: number;
   delay: number;
   hasRing?: boolean;
+}
+
+interface FloatingPlanetsProps {
+  variant?: "fixed" | "section";
+  planetIds?: PlanetId[];
+  className?: string;
+  opacity?: number;
 }
 
 const planetConfigs: FloatingPlanet[] = [
@@ -77,21 +86,56 @@ const planetConfigs: FloatingPlanet[] = [
   },
 ];
 
-export function FloatingPlanets() {
+export function FloatingPlanets({
+  variant = "fixed",
+  planetIds,
+  className,
+  opacity = 0.5,
+}: FloatingPlanetsProps) {
   const [scrollY, setScrollY] = useState(0);
+  const [hovered, setHovered] = useState<PlanetId | null>(null);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const sectionTopRef = useRef(0);
+
+  const visible = planetIds ? planetConfigs.filter((p) => planetIds.includes(p.id)) : planetConfigs;
 
   useEffect(() => {
+    const measure = () => {
+      const rect = wrapRef.current?.getBoundingClientRect();
+      sectionTopRef.current = (rect?.top ?? 0) + window.scrollY;
+    };
     const onScroll = () => setScrollY(window.scrollY);
+    const onResize = () => {
+      measure();
+      setScrollY(window.scrollY);
+    };
+    measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize);
+    window.addEventListener("load", measure);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("load", measure);
+    };
   }, []);
 
-  const parallaxFactor = 0.03;
+  const parallaxFactor = variant === "section" ? 0.045 : 0.03;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
-      {planetConfigs.map((planet) => {
-        const offsetY = scrollY * parallaxFactor * (planet.duration / 20);
+    <div
+      ref={wrapRef}
+      aria-hidden="true"
+      className={
+        variant === "fixed"
+          ? `fixed inset-0 pointer-events-none z-[1] overflow-hidden ${className ?? ""}`
+          : `absolute inset-0 pointer-events-none z-0 overflow-hidden ${className ?? ""}`
+      }
+    >
+      {visible.map((planet) => {
+        const baseY = scrollY - (variant === "section" ? sectionTopRef.current : 0);
+        const offsetY = baseY * parallaxFactor * (planet.duration / 20);
+        const isHovered = hovered === planet.id;
         return (
           <motion.div
             key={planet.id}
@@ -102,40 +146,74 @@ export function FloatingPlanets() {
             style={{
               left: `${planet.x}%`,
               top: `${planet.y}%`,
-              transform: `translateY(${-offsetY}px)`,
+              width: planet.size,
+              height: planet.size,
+              transform: `translate(-50%, calc(-50% + ${-offsetY}px))`,
             }}
           >
             <div
-              className="animate-float-slow"
+              className="animate-orbit-drift-wide relative w-full h-full"
               style={{
-                animationDuration: `${planet.duration}s`,
-                animationDelay: `${planet.delay}s`,
+                animationDuration: `${planet.duration * 0.65}s`,
+                animationDelay: `${-planet.delay * 0.5}s`,
+                animationPlayState: isHovered ? "paused" : "running",
               }}
             >
+              {/* Decorative orbit path */}
               <div
-                className="rounded-full"
+                className="absolute rounded-full border pointer-events-none"
                 style={{
-                  width: planet.size,
-                  height: planet.size,
-                  background: `radial-gradient(circle at 35% 35%, ${planet.color}ee, ${planet.color}88 50%, ${planet.color}44 100%)`,
-                  boxShadow: `0 0 ${planet.size * 0.6}px ${planet.size * 0.2}px ${planet.glow}`,
-                  opacity: 0.5,
+                  width: planet.size * 3.4,
+                  height: planet.size * 1.5,
+                  left: "50%",
+                  top: "50%",
+                  transform: "translate(-50%, -50%) rotateX(72deg) rotate(18deg)",
+                  borderColor: isHovered ? `${planet.color}80` : `${planet.color}1f`,
+                  borderWidth: 1,
+                  transition: "border-color .3s",
                 }}
               />
-              {planet.hasRing && (
+              <div
+                className="animate-float-slow relative w-full h-full"
+                style={{
+                  animationDuration: `${planet.duration}s`,
+                  animationDelay: `${planet.delay}s`,
+                  animationPlayState: isHovered ? "paused" : "running",
+                }}
+              >
                 <div
-                  className="absolute rounded-full border pointer-events-none"
+                  className="absolute rounded-full animate-glow-breathing pointer-events-none"
                   style={{
-                    width: planet.size * 1.8,
-                    height: planet.size * 0.45,
                     left: "50%",
                     top: "50%",
-                    transform: "translate(-50%, -50%) rotateX(70deg)",
-                    borderColor: `${planet.color}44`,
-                    borderWidth: 1.5,
+                    width: planet.size * (isHovered ? 3 : 2.2),
+                    height: planet.size * (isHovered ? 3 : 2.2),
+                    transform: "translate(-50%, -50%)",
+                    background: `radial-gradient(circle, ${planet.glow} 0%, transparent 65%)`,
+                    animationDuration: `${planet.duration * 0.45}s`,
+                    transition: "width .35s ease, height .35s ease",
                   }}
                 />
-              )}
+                <motion.div
+                  className="relative pointer-events-auto cursor-pointer"
+                  style={{ width: planet.size, height: planet.size }}
+                  animate={{ scale: isHovered ? 1.45 : 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 18 }}
+                  onHoverStart={() => setHovered(planet.id)}
+                  onHoverEnd={() => setHovered(null)}
+                >
+                  <Planet3D
+                    size={planet.size}
+                    color={planet.color}
+                    glow={planet.glow}
+                    image={`/images/planets/tex-${planet.id}.jpg`}
+                    spinDuration={planet.duration * (isHovered ? 0.9 : 2.2)}
+                    ring={planet.hasRing}
+                    highlighted={isHovered}
+                    opacity={isHovered ? 1 : opacity}
+                  />
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         );
