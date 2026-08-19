@@ -172,6 +172,28 @@ export const projects = [
     impact: "Simplifica o mercado de créditos de carbono e torna a sustentabilidade acessível.",
     url: "https://mercado-net-zero.vercel.app/",
   },
+  {
+    title: "Atelier Norte",
+    description:
+      "Site institucional para escritório de arquitetura e interiores em São Paulo, com foco em apresentação de serviços, projetos e contato.",
+    technologies: ["Lovable", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    problem: "Escritórios de arquitetura precisam comunicar autoridade, estilo e portfólio de forma elegante.",
+    solution:
+      "Criei uma experiência editorial com navegação clara, visual sofisticado e páginas voltadas para conversão.",
+    impact: "Fortalece a presença digital e ajuda a transformar visitantes em novos contatos e orçamentos.",
+    url: "https://arquitetura-pra-todos.vercel.app/",
+  },
+  {
+    title: "Studio de Beleza Penélope",
+    description:
+      "Site para salão de beleza com páginas de serviços, galeria e agendamento, pensado para destacar a marca e facilitar reservas.",
+    technologies: ["Lovable", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    problem: "Um studio de beleza precisa de uma presença online bonita, clara e orientada para agendamento.",
+    solution:
+      "Desenvolvi uma vitrine digital acolhedora com destaque para serviços, experiência visual e chamada para agendar.",
+    impact: "Aumenta a credibilidade da marca e deixa o processo de contato mais rápido para clientes novas.",
+    url: "https://penelope-estudio-exemploeditavel-ma.vercel.app/",
+  },
 ];
 
 export const achievements = [
