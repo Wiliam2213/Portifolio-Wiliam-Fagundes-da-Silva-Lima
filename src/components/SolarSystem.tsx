@@ -147,7 +147,7 @@ function OrbitRing({
         className="absolute inset-0"
         style={{
           animation: `orbit ${duration}s linear infinite`,
-          animationPlayState: isActive ? "paused" : "running",
+          animationPlayState: focused ? "paused" : "running",
           transformStyle: "preserve-3d",
         }}
       >
@@ -162,7 +162,9 @@ function OrbitRing({
             transformStyle: "preserve-3d",
           }}
           aria-label={`${planet.name}: ${planet.section}`}
-          whileHover={{ scale: 1.35 }}
+          whileHover={{ scale: 1.45 }}
+          animate={{ scale: focused ? 1.45 : 1 }}
+          transition={{ type: "spring", stiffness: 220, damping: 18 }}
           whileTap={{ scale: 0.95 }}
           onHoverStart={() => onHover(planet.id)}
           onHoverEnd={() => onHover(null)}
@@ -176,7 +178,7 @@ function OrbitRing({
               width: "100%",
               height: "100%",
               animation: `orbit ${duration}s linear infinite reverse`,
-              animationPlayState: isActive ? "paused" : "running",
+              animationPlayState: focused ? "paused" : "running",
               transformStyle: "preserve-3d",
             }}
           >
@@ -196,7 +198,7 @@ function OrbitRing({
                 color={planet.color}
                 glow={planet.glowColor}
                 image={planet.image}
-                spinDuration={planet.orbitDuration * 1.6}
+                spinDuration={planet.orbitDuration * (focused ? 0.7 : 1.6)}
                 ring={planet.id === "saturn"}
                 highlighted={focused}
               />
