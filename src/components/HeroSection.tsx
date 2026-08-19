@@ -34,11 +34,11 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden"
     >
       {/* Orbiting solar system backdrop */}
-      <motion.div className="absolute inset-0 z-20" style={{ scale, opacity }}>
+      <motion.div className="absolute inset-0 z-20 pointer-events-none" style={{ scale, opacity }}>
         <SolarSystem onPlanetClick={handlePlanetClick} activePlanet={null} showSunLabel={false} />
       </motion.div>
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-30 text-center px-6 max-w-4xl mx-auto">
         {/* Header: Name + Photo side by side */}
         <motion.div
           className="flex flex-col lg:flex-row items-center justify-center gap-12 mb-12"
