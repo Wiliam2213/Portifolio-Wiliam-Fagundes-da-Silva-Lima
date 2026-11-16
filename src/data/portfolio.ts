@@ -84,11 +84,11 @@ export const planets: PlanetData[] = [
 export const skills = [
   {
     category: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "JavaScript (ES6+)", "Tailwind CSS", "HTML5 / CSS3", "SPA & SEO"],
+    items: ["React", "Next.js", "TypeScript", "JavaScript (ES6+)", "Next.js", "Tailwind CSS", "HTML5 / CSS3", "SPA & SEO"],
   },
   {
     category: "Backend",
-    items: ["Node.js", "Express", "REST APIs", "Middlewares", "Cache", "Services / Controllers / Repositories"],
+    items: ["Node.js", "Fast.API", "Express", "REST APIs", "Middlewares", "Cache", "Services / Controllers / Repositories"],
   },
   {
     category: "Auth & Segurança",
@@ -96,7 +96,7 @@ export const skills = [
   },
   {
     category: "Banco de Dados",
-    items: ["PostgreSQL", "Supabase", "Modelagem", "Views & Procedures", "Triggers", "Migrations", "Tuning de queries"],
+    items: ["PostgreSQL", "Supabase", "Modelagem", "Triggers", "Tuning de queries"],
   },
   {
     category: "Infra & Cloud",
